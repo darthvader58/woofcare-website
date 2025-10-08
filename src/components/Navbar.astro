@@ -1,0 +1,62 @@
+---
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Join Us", href: "/join-us" },
+  { name: "Team", href: "/team" },
+  { name: "Contact", href: "/contact" }
+];
+---
+<nav
+  class="bg-white border-b border-gray-200 w-full px-4 py-2 flex items-center justify-between relative"
+  x-data="{ open: false }"
+>
+  <div class="text-2xl font-bold tracking-wide text-indigo-700 text-wcBold">WoofCare</div>
+  <!-- Desktop nav (only shows above 650px) -->
+  <ul class="nav-links flex gap-8">
+    {navLinks.map(link => (
+      <li>
+        <a href={link.href} class="hover:text-indigo-600 transition-colors">{link.name}</a>
+      </li>
+    ))}
+  </ul>
+  <!-- Hamburger button, only <650px -->
+  <button
+    class="hamburger flex flex-col w-8 h-8 justify-center items-center"
+    aria-label="Toggle navigation"
+    @click="open = !open"
+  >
+    <span class="block w-6 h-0.5 bg-gray-800 mb-1 transition-all" :class="{ 'rotate-45 translate-y-2': open }"></span>
+    <span class="block w-6 h-0.5 bg-gray-800 mb-1 transition-all" :class="{ 'opacity-0': open }"></span>
+    <span class="block w-6 h-0.5 bg-gray-800 transition-all" :class="{ '-rotate-45 -translate-y-2': open }"></span>
+  </button>
+  <!-- Mobile nav menu (only <650px and open) -->
+  <div
+    class="mobile-menu fixed inset-0 z-40 flex flex-col items-center bg-white bg-opacity-95 pt-32 space-y-8 transition-all duration-300"
+    x-show="open"
+    x-transition
+    @click.away="open = false"
+    style="display: none;"
+  >
+    <button class="absolute top-8 right-8 text-3xl text-gray-700" @click="open = false">✕</button>
+    <ul class="flex flex-col gap-8 text-lg">
+      {navLinks.map(link => (
+        <li>
+          <a href={link.href} @click="open = false" class="hover:text-indigo-600 transition-colors">{link.name}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<style>
+.nav-links { display: flex; }
+.hamburger { display: none; }
+@media (max-width: 575px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+/* .mobile-menu is always display:none by default; Alpine x-show takes over below 650px */
+</style>

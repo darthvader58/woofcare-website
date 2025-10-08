@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <section class="max-w-2xl mx-auto py-16 text-center bg-wcSecondary rounded-lg">
+    <h2 class="text-4xl md:text-5xl font-bold text-wcBold mb-6">Contact WoofCare</h2>
+    <p class="text-lg md:text-xl text-wcText mb-8">
+      Have questions, feedback, or want to get involved? Reach out and our team will respond as quickly as possible!
+    </p>
+    <form class="flex flex-col gap-4 max-w-md mx-auto text-left">
+      <input type="text" placeholder="Your Name" class="px-4 py-2 border border-wcText rounded bg-wcTextbox focus:outline-none focus:ring-2 focus:ring-wcButton" required />
+      <input type="email" placeholder="Your Email" class="px-4 py-2 border border-wcText rounded bg-wcTextbox focus:outline-none focus:ring-2 focus:ring-wcButton" required />
+      <textarea placeholder="Your Message" rows="4" class="px-4 py-2 border border-wcText rounded bg-wcTextbox focus:outline-none focus:ring-2 focus:ring-wcButton" required></textarea>
+      <button type="submit" class="bg-wcButton hover:bg-wcBold text-wcOffwhite font-semibold py-2 rounded-lg transition">
+        Send Message
+      </button>
+    </form>
+    <div class="mt-8 text-wcSecondaryText text-sm">
+      Or email us at <a href="mailto:contact@woofcare.com" class="text-wcLink hover:underline">contact@woofcare.com</a>
+    </div>
+  </section>
+</BaseLayout>

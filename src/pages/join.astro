@@ -416,22 +416,37 @@ import Layout from '../layouts/Layout.astro';
   }
 </style>
 
-<script>
-  import { db } from '../firebase-config.js';
-  import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-  console.log('🔥 Firebase imports loaded');
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCvzQDGbU8ndDGJ3mGCeWA0mSsCNRhsbt0",
+    authDomain: "woofcare-a9fac.firebaseapp.com",
+    projectId: "woofcare-a9fac",
+    storageBucket: "woofcare-a9fac.firebasestorage.app",
+    messagingSenderId: "506976961145",
+    appId: "1:506976961145:web:551d2afd7dc9f0e8240aa8",
+    measurementId: "G-FJDV4K81CK"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  console.log('🔥 Firebase loaded from CDN');
   console.log('📊 Database instance:', db);
 
   // Join form handling with Firebase
-  const form = document.getElementById('joinForm') as HTMLFormElement;
-  const formMessage = document.getElementById('formMessage') as HTMLDivElement;
-  const submitBtn = form?.querySelector('.submit-btn') as HTMLButtonElement;
-  const btnText = submitBtn?.querySelector('.btn-text') as HTMLSpanElement;
-  const btnLoader = submitBtn?.querySelector('.btn-loader') as HTMLSpanElement;
+  const form = document.getElementById('joinForm');
+  const formMessage = document.getElementById('formMessage');
+  const submitBtn = form?.querySelector('.submit-btn');
+  const btnText = submitBtn?.querySelector('.btn-text');
+  const btnLoader = submitBtn?.querySelector('.btn-loader');
 
   // Validation function
-  function validateForm(): boolean {
+  function validateForm() {
     console.log('🔍 Validating form...');
     let isValid = true;
     let firstErrorField = null;
@@ -453,8 +468,8 @@ import Layout from '../layouts/Layout.astro';
     ];
 
     requiredFields.forEach(field => {
-      const input = document.getElementById(field.id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-      const errorElement = document.getElementById(`${field.id}-error`) as HTMLSpanElement;
+      const input = document.getElementById(field.id);
+      const errorElement = document.getElementById(`${field.id}-error`);
       
       if (!input.value.trim()) {
         errorElement.textContent = `${field.name} is required`;
@@ -513,16 +528,16 @@ import Layout from '../layouts/Layout.astro';
       
       // Prepare data object for Firestore
       const data = {
-        orgName: formData.get('orgName') as string,
-        orgType: formData.get('orgType') as string,
-        website: formData.get('website') as string || '',
-        phone: formData.get('phone') as string || '',
-        email: formData.get('email') as string || '',
-        personInCharge: formData.get('personInCharge') as string,
-        location: formData.get('location') as string,
-        dateEstablished: formData.get('dateEstablished') as string || '',
-        numCenters: formData.get('numCenters') ? parseInt(formData.get('numCenters') as string) : 0,
-        socialMedia: formData.get('socialMedia') as string || '',
+        orgName: formData.get('orgName'),
+        orgType: formData.get('orgType'),
+        website: formData.get('website') || '',
+        phone: formData.get('phone') || '',
+        email: formData.get('email') || '',
+        personInCharge: formData.get('personInCharge'),
+        location: formData.get('location'),
+        dateEstablished: formData.get('dateEstablished') || '',
+        numCenters: formData.get('numCenters') ? parseInt(formData.get('numCenters')) : 0,
+        socialMedia: formData.get('socialMedia') || '',
         createdAt: serverTimestamp(),
         status: 'pending'
       };
@@ -581,8 +596,8 @@ import Layout from '../layouts/Layout.astro';
     const requiredInputs = form.querySelectorAll('[required]');
     requiredInputs.forEach(input => {
       input.addEventListener('blur', () => {
-        const errorElement = document.getElementById(`${input.id}-error`) as HTMLSpanElement;
-        if (!(input as HTMLInputElement).value.trim()) {
+        const errorElement = document.getElementById(`${input.id}-error`);
+        if (!input.value.trim()) {
           errorElement.textContent = 'This field is required';
           input.classList.add('error');
         } else {
@@ -591,10 +606,9 @@ import Layout from '../layouts/Layout.astro';
         }
       });
 
-      // Clear error on input
       input.addEventListener('input', () => {
-        if ((input as HTMLInputElement).value.trim()) {
-          const errorElement = document.getElementById(`${input.id}-error`) as HTMLSpanElement;
+        if (input.value.trim()) {
+          const errorElement = document.getElementById(`${input.id}-error`);
           errorElement.textContent = '';
           input.classList.remove('error');
         }

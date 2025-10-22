@@ -20,7 +20,7 @@ import Layout from '../layouts/Layout.astro';
           <p>Help us build a comprehensive network of dog care resources. Fill out the form below to register your organization.</p>
         </div>
 
-        <form class="join-form" id="joinForm">
+        <form class="join-form" id="joinForm" novalidate>
           <!-- Organization Name -->
           <div class="form-group">
             <label for="orgName">What is the name of the organization? *</label>
@@ -31,6 +31,7 @@ import Layout from '../layouts/Layout.astro';
               required 
               placeholder="Enter organization name"
             />
+            <span class="error-message" id="orgName-error"></span>
           </div>
 
           <!-- Type of Organization -->
@@ -43,6 +44,7 @@ import Layout from '../layouts/Layout.astro';
               <option value="Vet Clinic/Animal Hospital">Vet Clinic/Animal Hospital</option>
               <option value="Local Caretaker/Feeder">Local Caretaker/Feeder</option>
             </select>
+            <span class="error-message" id="orgType-error"></span>
           </div>
 
           <!-- Website Link -->
@@ -88,6 +90,7 @@ import Layout from '../layouts/Layout.astro';
               required 
               placeholder="Enter full name"
             />
+            <span class="error-message" id="personInCharge-error"></span>
           </div>
 
           <!-- Location/Address -->
@@ -100,6 +103,7 @@ import Layout from '../layouts/Layout.astro';
               required 
               placeholder="Enter complete address with city and state"
             ></textarea>
+            <span class="error-message" id="location-error"></span>
           </div>
 
           <!-- Date of Establishment -->
@@ -176,7 +180,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </section>
-
+</Layout>
 
 <style>
   .join-hero {
@@ -268,6 +272,12 @@ import Layout from '../layouts/Layout.astro';
     background-color: var(--white);
   }
 
+  .form-group input.error,
+  .form-group select.error,
+  .form-group textarea.error {
+    border-color: #d32f2f;
+  }
+
   .form-group select {
     cursor: pointer;
   }
@@ -275,6 +285,15 @@ import Layout from '../layouts/Layout.astro';
   .form-group textarea {
     resize: vertical;
     min-height: 100px;
+  }
+
+  .error-message {
+    color: #d32f2f;
+    font-size: 0.875rem;
+    font-style: italic;
+    margin-top: 0.25rem;
+    min-height: 1.2rem;
+    display: block;
   }
 
   .submit-btn {
@@ -292,24 +311,26 @@ import Layout from '../layouts/Layout.astro';
 
   .form-message {
     margin-top: 1.5rem;
-    padding: 1rem;
-    border-radius: 8px;
+    padding: 1.5rem;
+    border-radius: 12px;
     text-align: center;
     font-weight: 600;
+    font-size: 1.1rem;
     display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .form-message.success {
     background-color: #d4edda;
     color: #155724;
-    border: 1px solid #c3e6cb;
+    border: 2px solid #28a745;
     display: block;
   }
 
   .form-message.error {
     background-color: #f8d7da;
     color: #721c24;
-    border: 1px solid #f5c6cb;
+    border: 2px solid #dc3545;
     display: block;
   }
 
@@ -392,11 +413,6 @@ import Layout from '../layouts/Layout.astro';
     .info-cards {
       grid-template-columns: 1fr;
     }
-
-    .partner-logos {
-      flex-direction: column;
-      align-items: center;
-    }
   }
 </style>
 
@@ -405,7 +421,7 @@ import Layout from '../layouts/Layout.astro';
   import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
   console.log('🔥 Firebase imports loaded');
-  console.log('Database instance:', db);
+  console.log('📊 Database instance:', db);
 
   // Join form handling with Firebase
   const form = document.getElementById('joinForm') as HTMLFormElement;
@@ -414,11 +430,79 @@ import Layout from '../layouts/Layout.astro';
   const btnText = submitBtn?.querySelector('.btn-text') as HTMLSpanElement;
   const btnLoader = submitBtn?.querySelector('.btn-loader') as HTMLSpanElement;
 
+  // Validation function
+  function validateForm(): boolean {
+    console.log('🔍 Validating form...');
+    let isValid = true;
+    let firstErrorField = null;
+
+    // Clear all previous errors
+    document.querySelectorAll('.error-message').forEach(el => {
+      el.textContent = '';
+    });
+    document.querySelectorAll('.error').forEach(el => {
+      el.classList.remove('error');
+    });
+
+    // Required fields
+    const requiredFields = [
+      { id: 'orgName', name: 'Organization name' },
+      { id: 'orgType', name: 'Organization type' },
+      { id: 'personInCharge', name: 'Person in charge' },
+      { id: 'location', name: 'Location/Address' }
+    ];
+
+    requiredFields.forEach(field => {
+      const input = document.getElementById(field.id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+      const errorElement = document.getElementById(`${field.id}-error`) as HTMLSpanElement;
+      
+      if (!input.value.trim()) {
+        errorElement.textContent = `${field.name} is required`;
+        input.classList.add('error');
+        isValid = false;
+        
+        // Store the first error field
+        if (!firstErrorField) {
+          firstErrorField = input;
+        }
+        
+        console.log(`❌ Validation failed: ${field.name} is empty`);
+      }
+    });
+
+    if (isValid) {
+      console.log('✅ Form validation passed!');
+    } else {
+      console.log('❌ Form validation failed - please fill required fields');
+      
+      // Scroll to the first error field
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+        firstErrorField.focus();
+        console.log('📍 Scrolled to first missing field');
+      }
+    }
+
+    return isValid;
+  }
+
   if (form) {
     console.log('✅ Form found, event listener attached');
+    
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log('📝 Form submitted!');
+      console.log('📝 Form submit button clicked!');
+
+      // Validate form
+      if (!validateForm()) {
+        console.log('⚠️ Form submission blocked due to validation errors');
+        return;
+      }
+
+      console.log('✅ Form validation passed, proceeding with submission...');
 
       // Disable submit button and show loader
       submitBtn.disabled = true;
@@ -439,22 +523,29 @@ import Layout from '../layouts/Layout.astro';
         dateEstablished: formData.get('dateEstablished') as string || '',
         numCenters: formData.get('numCenters') ? parseInt(formData.get('numCenters') as string) : 0,
         socialMedia: formData.get('socialMedia') as string || '',
-        createdAt: serverTimestamp(), // Adds server timestamp
-        status: 'pending' // Optional: track submission status
+        createdAt: serverTimestamp(),
+        status: 'pending'
       };
 
       try {
-        console.log('🔄 Attempting to submit data:', data);
+        console.log('🔄 Attempting to submit data to Firestore:', data);
         console.log('📊 Database reference:', db);
         
         // Add document to 'organizations' collection
         const docRef = await addDoc(collection(db, 'organizations'), data);
         
         console.log('✅ SUCCESS! Document written with ID:', docRef.id);
+        console.log('🎉 Form submitted successfully to Firebase!');
         
         // Show success message
         formMessage.textContent = 'Thank you for joining WoofCare! Your organization has been successfully registered.';
         formMessage.className = 'form-message success';
+        
+        // Scroll to success message so user sees it
+        formMessage.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
         
         // Reset form
         form.reset();
@@ -464,22 +555,52 @@ import Layout from '../layouts/Layout.astro';
         console.error('❌ ERROR adding document:', error);
         console.error('Error code:', error.code);
         console.error('Error message:', error.message);
-        console.error('Full error:', JSON.stringify(error, null, 2));
         
         formMessage.textContent = `Error: ${error.message}. Check browser console for details.`;
         formMessage.className = 'form-message error';
+        
+        // Scroll to error message so user sees it
+        formMessage.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
       } finally {
         // Re-enable submit button and hide loader
         submitBtn.disabled = false;
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
         
-        // Hide message after 7 seconds
+        // Hide message after 10 seconds
         setTimeout(() => {
           formMessage.style.display = 'none';
-        }, 7000);
+        }, 10000);
       }
     });
+
+    // Real-time validation on blur
+    const requiredInputs = form.querySelectorAll('[required]');
+    requiredInputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        const errorElement = document.getElementById(`${input.id}-error`) as HTMLSpanElement;
+        if (!(input as HTMLInputElement).value.trim()) {
+          errorElement.textContent = 'This field is required';
+          input.classList.add('error');
+        } else {
+          errorElement.textContent = '';
+          input.classList.remove('error');
+        }
+      });
+
+      // Clear error on input
+      input.addEventListener('input', () => {
+        if ((input as HTMLInputElement).value.trim()) {
+          const errorElement = document.getElementById(`${input.id}-error`) as HTMLSpanElement;
+          errorElement.textContent = '';
+          input.classList.remove('error');
+        }
+      });
+    });
+
   } else {
     console.error('❌ Form not found! Check if id="joinForm" exists');
   }

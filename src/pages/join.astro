@@ -60,24 +60,28 @@ import Layout from '../layouts/Layout.astro';
 
           <!-- Phone Number -->
           <div class="form-group">
-            <label for="phone">Phone Number</label>
+            <label for="phone">Phone Number *</label>
             <input 
               type="tel" 
               id="phone" 
               name="phone" 
               placeholder="+1 (555) 123-4567"
             />
+            <span class="error-message" id="phone-error"></span>
+            <span class="helper-text">Must be 10 digits. At least one contact method (phone or email) is required</span>
           </div>
 
           <!-- Email -->
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Email *</label>
             <input 
               type="email" 
               id="email" 
               name="email" 
               placeholder="contact@example.com"
             />
+            <span class="error-message" id="email-error"></span>
+            <span class="helper-text">At least one contact method (phone or email) is required</span>
           </div>
 
           <!-- Name of Person in Charge -->
@@ -296,6 +300,14 @@ import Layout from '../layouts/Layout.astro';
     display: block;
   }
 
+  .helper-text {
+    color: var(--text-medium);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
   .submit-btn {
     margin-top: 1rem;
     font-size: 1.1rem;
@@ -445,6 +457,54 @@ import Layout from '../layouts/Layout.astro';
   const btnText = submitBtn?.querySelector('.btn-text');
   const btnLoader = submitBtn?.querySelector('.btn-loader');
 
+  // Function to validate contact information (phone or email)
+  function validateContactInfo() {
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+    const phoneError = document.getElementById('phone-error');
+    const emailError = document.getElementById('email-error');
+    
+    const phoneValue = phoneInput.value.trim();
+    const emailValue = emailInput.value.trim();
+    
+    let isValid = true;
+    
+    // Check if at least one is filled
+    if (!phoneValue && !emailValue) {
+      phoneError.textContent = 'Please provide at least one contact method';
+      emailError.textContent = 'Please provide at least one contact method';
+      phoneInput.classList.add('error');
+      emailInput.classList.add('error');
+      return false;
+    }
+    
+    // If phone is provided, validate it's exactly 10 digits
+    if (phoneValue) {
+      // Remove all non-digit characters for validation
+      const digitsOnly = phoneValue.replace(/\D/g, '');
+      
+      if (digitsOnly.length !== 10) {
+        phoneError.textContent = 'Phone number must be exactly 10 digits';
+        phoneInput.classList.add('error');
+        isValid = false;
+      } else {
+        phoneError.textContent = '';
+        phoneInput.classList.remove('error');
+      }
+    } else {
+      phoneError.textContent = '';
+      phoneInput.classList.remove('error');
+    }
+    
+    // Clear email error if phone is valid or email is provided
+    if (isValid || emailValue) {
+      emailError.textContent = '';
+      emailInput.classList.remove('error');
+    }
+    
+    return isValid;
+  }
+
   // Validation function
   function validateForm() {
     console.log('🔍 Validating form...');
@@ -484,6 +544,15 @@ import Layout from '../layouts/Layout.astro';
         console.log(`❌ Validation failed: ${field.name} is empty`);
       }
     });
+
+    // Validate contact information (phone or email)
+    if (!validateContactInfo()) {
+      isValid = false;
+      if (!firstErrorField) {
+        firstErrorField = document.getElementById('phone');
+      }
+      console.log('❌ Validation failed: No contact method provided');
+    }
 
     if (isValid) {
       console.log('✅ Form validation passed!');
@@ -592,7 +661,7 @@ import Layout from '../layouts/Layout.astro';
       }
     });
 
-    // Real-time validation on blur
+    // Real-time validation on blur for required fields
     const requiredInputs = form.querySelectorAll('[required]');
     requiredInputs.forEach(input => {
       input.addEventListener('blur', () => {
@@ -613,6 +682,27 @@ import Layout from '../layouts/Layout.astro';
           input.classList.remove('error');
         }
       });
+    });
+
+    // Real-time validation for contact fields (phone and email)
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+
+    // Validate when either phone or email loses focus
+    phoneInput.addEventListener('blur', validateContactInfo);
+    emailInput.addEventListener('blur', validateContactInfo);
+
+    // Clear errors when user starts typing in either field
+    phoneInput.addEventListener('input', () => {
+      if (phoneInput.value.trim() || emailInput.value.trim()) {
+        validateContactInfo();
+      }
+    });
+
+    emailInput.addEventListener('input', () => {
+      if (phoneInput.value.trim() || emailInput.value.trim()) {
+        validateContactInfo();
+      }
     });
 
   } else {

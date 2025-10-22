@@ -137,7 +137,8 @@ import Layout from '../layouts/Layout.astro';
 
           <!-- Submit Button -->
           <button type="submit" class="btn btn-primary submit-btn">
-            Submit
+            <span class="btn-text">Submit</span>
+            <span class="btn-loader" style="display: none;">Submitting...</span>
           </button>
         </form>
 
@@ -176,19 +177,6 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- Partners Section -->
-  <section class="section partners-banner">
-    <div class="container">
-      <h3>Join Our Growing Network</h3>
-      <p>NGOs, shelters, veterinary clinics, and individual caregivers are already part of the WoofCare community.</p>
-      <div class="partner-logos">
-        <div class="partner-badge">Voice of Stray Dogs</div>
-        <div class="partner-badge">Dogs Friendly Pune</div>
-        <div class="partner-badge">Your Organization</div>
-      </div>
-    </div>
-  </section>
-</Layout>
 
 <style>
   .join-hero {
@@ -294,6 +282,12 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.1rem;
     padding: 1rem 2rem;
     width: 100%;
+    position: relative;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 
   .form-message {
@@ -368,42 +362,6 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.95rem;
   }
 
-  /* Partners Banner */
-  .partners-banner {
-    background: linear-gradient(to right, var(--cream), var(--light-cream));
-    text-align: center;
-    padding: 3rem 0;
-  }
-
-  .partners-banner h3 {
-    color: var(--dark-brown);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .partners-banner p {
-    color: var(--text-medium);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-
-  .partner-logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
-  .partner-badge {
-    background-color: var(--primary-brown);
-    color: var(--white);
-    padding: 1rem 2rem;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-
-  /* Required field indicator */
   .form-group label::after {
     content: '';
   }
@@ -443,61 +401,86 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-  // Join form handling
+  import { db } from '../firebase-config.js';
+  import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+  console.log('🔥 Firebase imports loaded');
+  console.log('Database instance:', db);
+
+  // Join form handling with Firebase
   const form = document.getElementById('joinForm') as HTMLFormElement;
   const formMessage = document.getElementById('formMessage') as HTMLDivElement;
+  const submitBtn = form?.querySelector('.submit-btn') as HTMLButtonElement;
+  const btnText = submitBtn?.querySelector('.btn-text') as HTMLSpanElement;
+  const btnLoader = submitBtn?.querySelector('.btn-loader') as HTMLSpanElement;
 
   if (form) {
+    console.log('✅ Form found, event listener attached');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      console.log('📝 Form submitted!');
+
+      // Disable submit button and show loader
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'inline';
 
       const formData = new FormData(form);
+      
+      // Prepare data object for Firestore
       const data = {
-        orgName: formData.get('orgName'),
-        orgType: formData.get('orgType'),
-        website: formData.get('website'),
-        phone: formData.get('phone'),
-        email: formData.get('email'),
-        personInCharge: formData.get('personInCharge'),
-        location: formData.get('location'),
-        dateEstablished: formData.get('dateEstablished'),
-        numCenters: formData.get('numCenters'),
-        socialMedia: formData.get('socialMedia'),
+        orgName: formData.get('orgName') as string,
+        orgType: formData.get('orgType') as string,
+        website: formData.get('website') as string || '',
+        phone: formData.get('phone') as string || '',
+        email: formData.get('email') as string || '',
+        personInCharge: formData.get('personInCharge') as string,
+        location: formData.get('location') as string,
+        dateEstablished: formData.get('dateEstablished') as string || '',
+        numCenters: formData.get('numCenters') ? parseInt(formData.get('numCenters') as string) : 0,
+        socialMedia: formData.get('socialMedia') as string || '',
+        createdAt: serverTimestamp(), // Adds server timestamp
+        status: 'pending' // Optional: track submission status
       };
 
-      // Create email body
-      const emailBody = `
-WoofCare Organization Registration
-
-Organization Name: ${data.orgName}
-Type: ${data.orgType}
-Website: ${data.website || 'Not provided'}
-Phone: ${data.phone || 'Not provided'}
-Email: ${data.email || 'Not provided'}
-Person in Charge: ${data.personInCharge}
-Location/Address: ${data.location}
-Date of Establishment: ${data.dateEstablished || 'Not provided'}
-Number of Centers: ${data.numCenters || 'Not provided'}
-Social Media: ${data.socialMedia || 'Not provided'}
-      `.trim();
-
-      // Create mailto link
-      const mailtoLink = `mailto:woofcareepics@gmail.com?subject=${encodeURIComponent('New Organization Registration: ' + data.orgName)}&body=${encodeURIComponent(emailBody)}`;
-
-      // Open mailto link
-      window.location.href = mailtoLink;
-
-      // Show success message
-      formMessage.textContent = 'Thank you for joining WoofCare! Opening your email client to complete submission...';
-      formMessage.className = 'form-message success';
-
-      // Reset form
-      form.reset();
-
-      // Hide message after 7 seconds
-      setTimeout(() => {
-        formMessage.style.display = 'none';
-      }, 7000);
+      try {
+        console.log('🔄 Attempting to submit data:', data);
+        console.log('📊 Database reference:', db);
+        
+        // Add document to 'organizations' collection
+        const docRef = await addDoc(collection(db, 'organizations'), data);
+        
+        console.log('✅ SUCCESS! Document written with ID:', docRef.id);
+        
+        // Show success message
+        formMessage.textContent = 'Thank you for joining WoofCare! Your organization has been successfully registered.';
+        formMessage.className = 'form-message success';
+        
+        // Reset form
+        form.reset();
+        
+      } catch (error) {
+        // Show detailed error message
+        console.error('❌ ERROR adding document:', error);
+        console.error('Error code:', error.code);
+        console.error('Error message:', error.message);
+        console.error('Full error:', JSON.stringify(error, null, 2));
+        
+        formMessage.textContent = `Error: ${error.message}. Check browser console for details.`;
+        formMessage.className = 'form-message error';
+      } finally {
+        // Re-enable submit button and hide loader
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoader.style.display = 'none';
+        
+        // Hide message after 7 seconds
+        setTimeout(() => {
+          formMessage.style.display = 'none';
+        }, 7000);
+      }
     });
+  } else {
+    console.error('❌ Form not found! Check if id="joinForm" exists');
   }
 </script>

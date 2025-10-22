@@ -1,15 +1,561 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout>
-  <section class="max-w-3xl mx-auto py-16 text-center bg-wcSecondary rounded-lg">
-    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-wcBold">About WoofCare</h2>
-    <p class="text-lg md:text-xl text-wcText mb-5">
-      WoofCare connects pet lovers, responsible dog owners, and dedicated volunteers to promote happier and healthier lives for dogs in our community.
-    </p>
-    <p class="text-wcSecondaryText">
-      Founded with a passion for animal welfare, WoofCare is committed to providing trustworthy resources, engaging events, and a supportive network for every pup and their human.
-    </p>
+<Layout title="About Us" description="Learn about WoofCare's mission to help stray dogs and meet our dedicated team.">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>About WoofCare</h1>
+      <p class="hero-subtitle">Building a compassionate community for stray dogs</p>
+    </div>
   </section>
-</BaseLayout>
+
+  <!-- Problem Statement Section -->
+  <section class="section problem-section">
+    <div class="container">
+      <h2 class="section-title">Understanding the Problem</h2>
+      
+      <div class="problem-content">
+        <div class="problem-block">
+          <h3>Dog Lovers' Dilemma</h3>
+          <p>Every day, compassionate individuals like Rajat and Soumya encounter stray dogs in need. They want to help, but face critical questions:</p>
+          <ul class="problem-list">
+            <li>Can my household situation accommodate a rescue?</li>
+            <li>Do I have the financial means for proper care?</li>
+            <li>How can I access immediate veterinary care?</li>
+            <li>Where are the nearest dog shelters or adoption centers?</li>
+          </ul>
+        </div>
+
+        <div class="problem-block">
+          <h3>NGOs Rendered Helpless</h3>
+          <p>Animal welfare organizations work tirelessly but are constrained by:</p>
+          <ul class="problem-list">
+            <li><strong>Limited Space:</strong> Shelters are often at full capacity</li>
+            <li><strong>Limited Resources:</strong> Insufficient supplies and equipment</li>
+            <li><strong>Limited Financial Assistance:</strong> Funding gaps prevent optimal care</li>
+            <li><strong>Limited Network:</strong> Difficulty reaching potential helpers and adopters</li>
+          </ul>
+        </div>
+
+        <div class="stats-block">
+          <h3>The Scale of the Challenge</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">200M+</div>
+              <div class="stat-label">Stray Dogs Worldwide</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">62M+</div>
+              <div class="stat-label">Stray Dogs in India</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">$2,260</div>
+              <div class="stat-label">Min. Annual Care Cost</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="section solution-section">
+    <div class="container">
+      <h2 class="section-title">Our Solution</h2>
+      
+      <div class="solution-intro">
+        <p class="solution-tagline">A social-media networking app that connects all dog lovers with dog resources in the vicinity.</p>
+      </div>
+
+      <div class="solution-features">
+        <div class="solution-feature">
+          <div class="feature-icon">📢</div>
+          <h3>Report Need for Care or Help</h3>
+          <p>Users can easily report stray dogs in need through the app, sharing location, photos, and details to mobilize quick assistance.</p>
+        </div>
+
+        <div class="solution-feature">
+          <div class="feature-icon">🤝</div>
+          <h3>Help or Find Help</h3>
+          <p>Connect instantly with nearby veterinary clinics, rescue shelters, NGOs, dog feeders, and potential adopters to provide or receive assistance.</p>
+        </div>
+
+        <div class="solution-feature">
+          <div class="feature-icon">✨</div>
+          <h3>Inspire Others to Join</h3>
+          <p>Share success stories, adoption updates, and rescue experiences to build a thriving community of dog lovers making a real impact.</p>
+        </div>
+      </div>
+
+      <div class="resources-list">
+        <h3>Dog Help Resources Available:</h3>
+        <div class="resources-tags">
+          <span class="resource-tag">Vet Clinics</span>
+          <span class="resource-tag">Dog Lovers</span>
+          <span class="resource-tag">Dog Feeders</span>
+          <span class="resource-tag">Rescue Shelters</span>
+          <span class="resource-tag">NGOs</span>
+          <span class="resource-tag">Open for Adoption</span>
+        </div>
+      </div>
+
+      <div class="competitive-advantage">
+        <h3>What Makes WoofCare Different?</h3>
+        <p>Unlike existing apps, WoofCare combines:</p>
+        <ul>
+          <li>Social media feed for community engagement</li>
+          <li>Interactive mapping system for location-based help</li>
+          <li>Direct connection with animal shelters and NGOs</li>
+          <li>Crowdsourcing approach validated by NGO partners</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="section team-section">
+    <div class="container">
+      <h2 class="section-title">Meet Our Core Team</h2>
+      <p class="section-subtitle">Passionate individuals united by a mission to help every stray dog find care</p>
+
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-photo">SR</div>
+          <h3>Shashwat Raj</h3>
+          <p class="member-role">Co-Founder</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">JA</div>
+          <h3>Jesus Aguilar</h3>
+          <p class="member-role">Co-Founder</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">DA</div>
+          <h3>Daniel Abrams</h3>
+          <p class="member-role">Co-Founder</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">JB</div>
+          <h3>Johnessa Barroquillo</h3>
+          <p class="member-role">Co-Founder</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">YT</div>
+          <h3>Yug Thapar</h3>
+          <p class="member-role">Co-Founder</p>
+        </div>
+      </div>
+
+      <div class="partners-section">
+        <h3>Our Community Partners</h3>
+        <div class="partners-grid">
+          <div class="partner-card">
+            <div class="partner-photo">AM</div>
+            <h4>Anantkumar Malikaveetil</h4>
+            <p>Community Partner</p>
+          </div>
+
+          <div class="partner-card">
+            <div class="partner-photo">BM</div>
+            <h4>Beena Malikaveetil</h4>
+            <p>Dogs Friendly Pune</p>
+            <p class="partner-quote">"This crowdsourcing method could be actually very helpful for NGOs and rescue shelters"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="section impact-section">
+    <div class="container">
+      <h2 class="section-title">Our Impact Vision</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">🛡️</div>
+          <h3>Safer Environment</h3>
+          <p>Creating safer communities for citizens, protecting against rabies infection and dog attacks through better care and management.</p>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-icon">🎓</div>
+          <h3>Raise Awareness</h3>
+          <p>Educating people about nearby help resources and teaching how to safely help stray dogs without getting hurt.</p>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-icon">🏡</div>
+          <h3>Provide Homes</h3>
+          <p>Finding loving forever homes for innocent, helpless abandoned stray dogs through our adoption network.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .about-hero {
+    background: linear-gradient(135deg, var(--primary-brown), var(--dark-brown));
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .about-hero h1 {
+    color: var(--white);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--light-cream);
+  }
+
+  .section-title {
+    text-align: center;
+    color: var(--primary-brown);
+    margin-bottom: 2rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+
+  /* Problem Section */
+  .problem-section {
+    background-color: var(--light-cream);
+  }
+
+  .problem-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .problem-block {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-brown);
+  }
+
+  .problem-block h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+  }
+
+  .problem-list {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .problem-list li {
+    margin-bottom: 0.75rem;
+    color: var(--text-medium);
+  }
+
+  .stats-block {
+    background: linear-gradient(135deg, var(--primary-brown), var(--dark-brown));
+    color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .stats-block h3 {
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    color: var(--light-cream);
+  }
+
+  /* Solution Section */
+  .solution-section {
+    background-color: var(--white);
+  }
+
+  .solution-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .solution-tagline {
+    font-size: 1.3rem;
+    color: var(--dark-brown);
+    font-weight: 600;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .solution-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .solution-feature {
+    background-color: var(--cream);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .solution-feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(184, 121, 43, 0.2);
+  }
+
+  .feature-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .solution-feature h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+  }
+
+  .resources-list {
+    background-color: var(--light-cream);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+  }
+
+  .resources-list h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1.5rem;
+  }
+
+  .resources-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .resource-tag {
+    background-color: var(--primary-brown);
+    color: var(--white);
+    padding: 0.5rem 1.25rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .competitive-advantage {
+    background: linear-gradient(to right, var(--cream), var(--light-cream));
+    padding: 2rem;
+    border-radius: 12px;
+  }
+
+  .competitive-advantage h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+  }
+
+  .competitive-advantage ul {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .competitive-advantage li {
+    margin-bottom: 0.75rem;
+    color: var(--text-medium);
+  }
+
+  /* Team Section */
+  .team-section {
+    background: linear-gradient(to bottom, var(--cream), var(--light-cream));
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .team-member {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(184, 121, 43, 0.3);
+  }
+
+  .member-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-brown), var(--dark-brown));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+  }
+
+  .team-member h3 {
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .member-role {
+    color: var(--primary-brown);
+    font-weight: 600;
+  }
+
+  .partners-section {
+    margin-top: 4rem;
+  }
+
+  .partners-section h3 {
+    text-align: center;
+    color: var(--dark-brown);
+    margin-bottom: 2rem;
+  }
+
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .partner-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid var(--primary-brown);
+  }
+
+  .partner-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--dark-brown), var(--primary-brown));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+  }
+
+  .partner-logo {
+    margin-bottom: 1rem;
+  }
+
+  .partner-logo h4 {
+    color: var(--primary-brown);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .partner-card h4 {
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .partner-quote {
+    font-style: italic;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  /* Impact Section */
+  .impact-section {
+    background-color: var(--white);
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .impact-card {
+    background: linear-gradient(135deg, var(--cream), var(--light-cream));
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .impact-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(184, 121, 43, 0.2);
+  }
+
+  .impact-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .impact-card h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .about-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .team-grid,
+    .solution-features,
+    .impact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .resources-tags {
+      justify-content: center;
+    }
+  }
+</style>

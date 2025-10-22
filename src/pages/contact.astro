@@ -1,23 +1,443 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout>
-  <section class="max-w-2xl mx-auto py-16 text-center bg-wcSecondary rounded-lg">
-    <h2 class="text-4xl md:text-5xl font-bold text-wcBold mb-6">Contact WoofCare</h2>
-    <p class="text-lg md:text-xl text-wcText mb-8">
-      Have questions, feedback, or want to get involved? Reach out and our team will respond as quickly as possible!
-    </p>
-    <form class="flex flex-col gap-4 max-w-md mx-auto text-left">
-      <input type="text" placeholder="Your Name" class="px-4 py-2 border border-wcText rounded bg-wcTextbox focus:outline-none focus:ring-2 focus:ring-wcButton" required />
-      <input type="email" placeholder="Your Email" class="px-4 py-2 border border-wcText rounded bg-wcTextbox focus:outline-none focus:ring-2 focus:ring-wcButton" required />
-      <textarea placeholder="Your Message" rows="4" class="px-4 py-2 border border-wcText rounded bg-wcTextbox focus:outline-none focus:ring-2 focus:ring-wcButton" required></textarea>
-      <button type="submit" class="bg-wcButton hover:bg-wcBold text-wcOffwhite font-semibold py-2 rounded-lg transition">
-        Send Message
-      </button>
-    </form>
-    <div class="mt-8 text-wcSecondaryText text-sm">
-      Or email us at <a href="mailto:woofcareepics@gmail.com" class="text-wcLink hover:underline">contact@woofcare.com</a>
+<Layout title="Contact Us" description="Get in touch with WoofCare. We'd love to hear from you!">
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Get in Touch</h1>
+      <p class="hero-subtitle">Have questions? Want to partner with us? We'd love to hear from you!</p>
     </div>
   </section>
-</BaseLayout>
+
+  <!-- Contact Section -->
+  <section class="section contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+          <h2>Send Us a Message</h2>
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name *</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Your Email *</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                placeholder="john@example.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                placeholder="+1 (555) 123-4567"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                required 
+                placeholder="How can we help you?"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="6" 
+                required 
+                placeholder="Tell us more about your inquiry..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn">
+              Send Message
+            </button>
+          </form>
+
+          <div id="formMessage" class="form-message"></div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <div class="info-card">
+            <div class="info-icon">📧</div>
+            <h3>Email Us</h3>
+            <p><a href="mailto:woofcareepics@gmail.com">woofcareepics@gmail.com</a></p>
+            <p class="info-description">We'll respond within 24-48 hours</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">🐕</div>
+            <h3>Report a Stray Dog</h3>
+            <p>Coming Soon on Google Play</p>
+            <p class="info-description">Download our app to report dogs in need instantly</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">🤝</div>
+            <h3>Partner With Us</h3>
+            <p>Are you an NGO or shelter?</p>
+            <p class="info-description">Contact us to join our network and help more dogs</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">💡</div>
+            <h3>Have Suggestions?</h3>
+            <p>We value your feedback</p>
+            <p class="info-description">Share your ideas to improve WoofCare</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>When will the app be available?</h3>
+          <p>WoofCare will be launching on Google Play soon! Sign up for updates by contacting us.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Is WoofCare free to use?</h3>
+          <p>Yes! WoofCare is completely free for dog lovers, shelters, and NGOs. We operate on a B2B model with pet product advertisers.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How can I become a community partner?</h3>
+          <p>We're actively seeking NGOs, shelters, and animal welfare organizations to partner with. Please contact us with details about your organization.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Can I volunteer with WoofCare?</h3>
+          <p>Absolutely! We welcome volunteers passionate about animal welfare. Send us a message describing how you'd like to help.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Join the WoofCare Movement</h2>
+        <p>Together, we can create a world where every bark finds a helping hand.</p>
+        <div class="cta-buttons">
+          <a href="/" class="btn btn-secondary">Learn More</a>
+          <a href="/about" class="btn btn-secondary">Our Mission</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-hero {
+    background: linear-gradient(135deg, var(--primary-brown), var(--dark-brown));
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .contact-hero h1 {
+    color: var(--white);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    color: var(--light-cream);
+  }
+
+  .section-title {
+    text-align: center;
+    color: var(--primary-brown);
+    margin-bottom: 3rem;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    background-color: var(--light-cream);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-form-container {
+    background-color: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-form-container h2 {
+    color: var(--dark-brown);
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px solid var(--cream);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-brown);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  .form-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+  }
+
+  .form-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+  }
+
+  .form-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .info-card {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-brown);
+    transition: all 0.3s ease;
+  }
+
+  .info-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 4px 15px rgba(184, 121, 43, 0.2);
+  }
+
+  .info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-card h3 {
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .info-card p {
+    margin-bottom: 0.25rem;
+  }
+
+  .info-card a {
+    color: var(--primary-brown);
+    font-weight: 600;
+  }
+
+  .info-description {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-top: 0.5rem;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background-color: var(--white);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .faq-item {
+    background-color: var(--cream);
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(184, 121, 43, 0.15);
+  }
+
+  .faq-item h3 {
+    color: var(--dark-brown);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .faq-item p {
+    color: var(--text-medium);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(to right, var(--primary-brown), var(--dark-brown));
+    color: var(--white);
+  }
+
+  .cta-content {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .cta-content h2 {
+    color: var(--white);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    color: var(--light-cream);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .cta-section .btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-brown);
+    border: none;
+  }
+
+  .cta-section .btn-secondary:hover {
+    background-color: var(--cream);
+  }
+
+  @media (max-width: 968px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<script>
+  // Contact form handling
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const formMessage = document.getElementById('formMessage') as HTMLDivElement;
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+      };
+
+      // Create mailto link
+      const mailtoLink = `mailto:woofcareepics@gmail.com?subject=${encodeURIComponent(data.subject as string)}&body=${encodeURIComponent(
+        `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\n\nMessage:\n${data.message}`
+      )}`;
+
+      // Open mailto link
+      window.location.href = mailtoLink;
+
+      // Show success message
+      formMessage.textContent = 'Opening your email client... If it doesn\'t open automatically, please email us at woofcareepics@gmail.com';
+      formMessage.className = 'form-message success';
+
+      // Reset form
+      form.reset();
+
+      // Hide message after 5 seconds
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    });
+  }
+</script>

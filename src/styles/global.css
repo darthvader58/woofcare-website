@@ -1,3 +1,141 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* WoofCare Global Styles */
+:root {
+    --primary-brown: #B8792B;
+    --dark-brown: #8B5A2B;
+    --light-brown: #D4A574;
+    --cream: #FAF3E8;
+    --light-cream: #FFF9F0;
+    --dark-green: #2D5016;
+    --text-dark: #3D2817;
+    --text-medium: #5D452F;
+    --white: #FFFFFF;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-dark);
+    background-color: var(--light-cream);
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+  }
+  
+  h1 {
+    font-size: 3rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+  }
+  
+  h3 {
+    font-size: 2rem;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+    color: var(--text-medium);
+  }
+  
+  a {
+    color: var(--primary-brown);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--dark-brown);
+  }
+  
+  button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .section {
+    padding: 4rem 0;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-brown);
+    color: var(--white);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--cream);
+    transform: translateY(-2px);
+    border: 4px solid var(--primary-brown);
+    /*box-shadow: 0 4px 12px rgba(255, 234, 205, 0.3);*/
+  }
+  
+  .btn-secondary {
+    background-color: var(--cream);
+    color: var(--primary-brown);
+    border: 2px solid var(--primary-brown);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--primary-brown);
+    color: var(--white);
+  }
+  
+  /* Paw Print Decoration */
+  .paw-print {
+    opacity: 0.1;
+    position: absolute;
+    z-index: 0;
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.75rem;
+    }
+  
+    h3 {
+      font-size: 1.5rem;
+    }
+  
+    .container {
+      padding: 0 1rem;
+    }
+  
+    .section {
+      padding: 2rem 0;
+    }
+  }

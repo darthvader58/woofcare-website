@@ -1,17 +1,391 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout>
-  <section class="flex flex-col items-center justify-center text-center py-24">
-    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-wcBold tracking-tight">
-      Welcome to WoofCare
-    </h1>
-    <p class="text-xl md:text-2xl text-wcText mb-10 max-w-2xl">
-      Tail-wagging care you can trust. Join us to connect dog owners, pet-lovers, and passionate volunteers for happier, healthier pups.
-    </p>
-    <a href="/join-us" class="bg-wcButton text-wcOffwhite font-semibold px-8 py-3 rounded-lg shadow hover:bg-wcBold transition">
-      Join Us Today
-    </a>
+<Layout title="Home">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1>WoofCare</h1>
+        <p class="hero-tagline">Where Every Bark Finds a Helping Hand</p>
+        <p class="hero-description">
+          Connect with dog-help resources in your vicinity to find home and care for abandoned stray dogs.
+        </p>
+        <div class="hero-buttons">
+          <a href="/join" class="btn btn-primary">Join the Movement</a>
+          <a href="/contact" class="btn btn-secondary">Get in Touch</a>
+        </div>
+        <div class="coming-soon">
+          <p>COMING SOON ON</p>
+          <div class="store-badge">Google Play</div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="dog-illustration"><img src="logo.svg"/></div>
+      </div>
+    </div>
   </section>
-</BaseLayout>
+
+  <!-- Problem Section -->
+  <section class="section problem-section">
+    <div class="container">
+      <h2 class="section-title">The Challenge We're Solving</h2>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">❤️</div>
+          <h3>Dog Lovers' Dilemma</h3>
+          <p>Many compassionate people want to help stray dogs but face challenges with household situations, financial constraints, and limited access to veterinary care.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🏠</div>
+          <h3>Overwhelmed NGOs</h3>
+          <p>Animal welfare organizations struggle with limited space, resources, financial assistance, and network reach to help all dogs in need.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🔍</div>
+          <h3>Finding Help is Hard</h3>
+          <p>Locating dog shelters, adoption centers, and veterinary services in your area is often difficult and time-consuming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="section solution-section">
+    <div class="container">
+      <h2 class="section-title">Our Solution</h2>
+      <p class="section-subtitle">A social-media networking app that connects all dog lovers with dog resources in the vicinity.</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-number">01</div>
+          <h3>Report Need for Care</h3>
+          <p>Easily report stray dogs that need help directly through the app with location and details.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">02</div>
+          <h3>Help or Find Help</h3>
+          <p>Connect with nearby resources including vet clinics, rescue shelters, NGOs, and potential adopters.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">03</div>
+          <h3>Inspire Others</h3>
+          <p>Share success stories and build a community of dog lovers making a real difference.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="section resources-section">
+    <div class="container">
+      <h2 class="section-title">Dog Help Resources</h2>
+      <div class="resources-grid">
+        <div class="resource-item">
+          <span class="resource-icon">🏥</span>
+          <span>Vet Clinics</span>
+        </div>
+        <div class="resource-item">
+          <span class="resource-icon">💕</span>
+          <span>Dog Lovers</span>
+        </div>
+        <div class="resource-item">
+          <span class="resource-icon">🍖</span>
+          <span>Dog Feeders</span>
+        </div>
+        <div class="resource-item">
+          <span class="resource-icon">🏠</span>
+          <span>Rescue Shelters</span>
+        </div>
+        <div class="resource-item">
+          <span class="resource-icon">🤝</span>
+          <span>NGOs</span>
+        </div>
+        <div class="resource-item">
+          <span class="resource-icon">🏡</span>
+          <span>Adoption Centers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Make a Difference?</h2>
+        <p>Join WoofCare and help create a world where every bark finds a helping hand.</p>
+        <a href="/contact" class="btn btn-primary">Contact Us</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--light-cream) 100%);
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    min-height: 70vh;
+  }
+
+  .hero-content h1 {
+    font-size: 4rem;
+    color: var(--primary-brown);
+    margin-bottom: 1rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.5rem;
+    color: var(--dark-brown);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .coming-soon {
+    margin-top: 2rem;
+  }
+
+  .coming-soon p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    margin-bottom: 0.5rem;
+  }
+
+  .store-badge {
+    display: inline-block;
+    background-color: var(--dark-brown);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dog-illustration {
+    font-size: 15rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Problem Section */
+  .problem-section {
+    background-color: var(--white);
+  }
+
+  .section-title {
+    text-align: center;
+    color: var(--primary-brown);
+    margin-bottom: 3rem;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .problem-card {
+    background-color: var(--light-cream);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .problem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(184, 121, 43, 0.2);
+  }
+
+  .problem-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .problem-card h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+  }
+
+  /* Solution Section */
+  .solution-section {
+    background: linear-gradient(to bottom, var(--cream), var(--light-cream));
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-brown);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 20px rgba(184, 121, 43, 0.2);
+  }
+
+  .feature-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+  }
+
+  /* Resources Section */
+  .resources-section {
+    background-color: var(--white);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .resource-item {
+    background-color: var(--cream);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .resource-item:hover {
+    background-color: var(--primary-brown);
+    color: var(--white);
+    transform: scale(1.05);
+  }
+
+  .resource-icon {
+    font-size: 2rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(to right, var(--primary-brown), var(--dark-brown));
+    color: var(--white);
+  }
+
+  .cta-content {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .cta-content h2 {
+    color: var(--white);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    color: var(--light-cream);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-content .btn-primary {
+    background-color: var(--cream);
+    color: var(--primary-brown);
+  }
+
+  .cta-content .btn-primary:hover {
+    background-color: var(--cream);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.2rem;
+    }
+
+    .hero-description {
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .dog-illustration {
+      font-size: 8rem;
+    }
+
+    .problem-grid,
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

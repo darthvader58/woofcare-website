@@ -22,7 +22,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
       <div class="hero-image">
-        <div class="dog-illustration"><img src="logo.svg"/></div>
+        <div class="dog-illustration"><img src="logo.svg" alt="WoofCare Logo"/></div>
       </div>
     </div>
   </section>
@@ -123,10 +123,10 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  /* Hero Section */
+  /* Hero Section - Fully Responsive */
   .hero {
     background: linear-gradient(135deg, var(--cream) 0%, var(--light-cream) 100%);
-    padding: 4rem 0;
+    padding: 2rem 0;
     position: relative;
     overflow: hidden;
   }
@@ -134,62 +134,89 @@ import Layout from '../layouts/Layout.astro';
   .hero-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: 2rem;
     align-items: center;
-    min-height: 70vh;
+    min-height: 50vh;
+  }
+
+  .hero-content {
+    padding: 1rem 0;
   }
 
   .hero-content h1 {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
     color: var(--primary-brown);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
   }
 
   .hero-tagline {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: var(--dark-brown);
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
   }
 
   .hero-description {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    margin-bottom: 1.5rem;
     max-width: 500px;
+    line-height: 1.6;
   }
 
   .hero-buttons {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-buttons .btn {
+    flex: 1 1 auto;
+    min-width: 140px;
+    max-width: 220px;
+    padding: 0.875rem 1.5rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    white-space: nowrap;
   }
 
   .coming-soon {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
   .coming-soon p {
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
     font-weight: 600;
     color: var(--text-medium);
     margin-bottom: 0.5rem;
+    letter-spacing: 1px;
   }
 
   .store-badge {
-    /*display: inline-block;*/
+    display: inline-block;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
   }
 
   .hero-image {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 200px;
   }
 
   .dog-illustration {
-    font-size: 15rem;
+    font-size: clamp(8rem, 25vw, 15rem);
     animation: float 3s ease-in-out infinite;
+    max-width: 100%;
+  }
+
+  .dog-illustration img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 
   @keyframes float {
@@ -210,11 +237,12 @@ import Layout from '../layouts/Layout.astro';
     text-align: center;
     color: var(--primary-brown);
     margin-bottom: 3rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
   }
 
   .problem-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
   }
 
@@ -239,6 +267,11 @@ import Layout from '../layouts/Layout.astro';
   .problem-card h3 {
     color: var(--dark-brown);
     margin-bottom: 1rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  }
+
+  .problem-card p {
+    font-size: clamp(0.95rem, 2vw, 1rem);
   }
 
   /* Solution Section */
@@ -248,14 +281,15 @@ import Layout from '../layouts/Layout.astro';
 
   .section-subtitle {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: clamp(1.05rem, 2.2vw, 1.2rem);
     max-width: 700px;
     margin: 0 auto 3rem;
+    line-height: 1.6;
   }
 
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
   }
 
@@ -282,6 +316,11 @@ import Layout from '../layouts/Layout.astro';
   .feature-card h3 {
     color: var(--dark-brown);
     margin-bottom: 1rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  }
+
+  .feature-card p {
+    font-size: clamp(0.95rem, 2vw, 1rem);
   }
 
   /* Resources Section */
@@ -291,7 +330,7 @@ import Layout from '../layouts/Layout.astro';
 
   .resources-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1.5rem;
     max-width: 900px;
     margin: 0 auto;
@@ -308,6 +347,7 @@ import Layout from '../layouts/Layout.astro';
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
   }
 
   .resource-item:hover {
@@ -333,14 +373,15 @@ import Layout from '../layouts/Layout.astro';
 
   .cta-content h2 {
     color: var(--white);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     margin-bottom: 1rem;
   }
 
   .cta-content p {
     color: var(--light-cream);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
     margin-bottom: 2rem;
+    line-height: 1.6;
   }
 
   .cta-content .btn-primary {
@@ -352,37 +393,124 @@ import Layout from '../layouts/Layout.astro';
     background-color: var(--cream);
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
+  /* Mobile Optimizations */
+  @media (max-width: 968px) {
+    .hero {
+      padding: 2rem 0 1.5rem;
+    }
+
     .hero-container {
       grid-template-columns: 1fr;
       text-align: center;
+      gap: 1.5rem;
+      min-height: auto;
+    }
+
+    .hero-content {
+      padding: 0;
     }
 
     .hero-content h1 {
-      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
 
     .hero-tagline {
-      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
     }
 
     .hero-description {
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.25rem;
+      max-width: 100%;
+    }
+
+    .hero-buttons {
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-buttons .btn {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .coming-soon {
+      margin-top: 1rem;
+    }
+
+    .store-badge {
+      display: inline-block;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .hero-image {
+      min-height: 150px;
+      margin-top: 1rem;
+    }
+
+    .dog-illustration {
+      font-size: 10rem;
+    }
+
+    .problem-grid,
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .resources-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .section {
+      padding: 2.5rem 0;
+    }
+  }
+
+  /* Small Mobile Devices */
+  @media (max-width: 480px) {
+    .hero {
+      padding: 1.5rem 0 1rem;
     }
 
     .hero-buttons {
       flex-direction: column;
-      align-items: center;
+      width: 100%;
+    }
+
+    .hero-buttons .btn {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .store-badge {
+      width: 100%;
+      text-align: center;
     }
 
     .dog-illustration {
       font-size: 8rem;
     }
 
-    .problem-grid,
-    .features-grid {
+    .problem-card,
+    .feature-card {
+      padding: 1.5rem;
+    }
+
+    .resources-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* Landscape Mobile Optimization */
+  @media (max-width: 968px) and (orientation: landscape) {
+    .hero-container {
+      min-height: auto;
+    }
+
+    .hero-image {
+      display: none;
     }
   }
 </style>

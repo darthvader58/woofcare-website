@@ -330,7 +330,7 @@ import Layout from '../layouts/Layout.astro';
 
   .resources-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(6, minmax(160px, 1fr));
     gap: 1.5rem;
     max-width: 900px;
     margin: 0 auto;
@@ -351,8 +351,6 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .resource-item:hover {
-    background-color: var(--primary-brown);
-    color: var(--white);
     transform: scale(1.05);
   }
 

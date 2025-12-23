@@ -17,7 +17,10 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="coming-soon">
           <p>COMING SOON</p>
-          <a href="/" class="btn btn-secondary">Get it on Google Playstore</a>
+          <div class="store-badge-container">
+            <span class="store-badge disabled">Get it on Google Playstore</span>
+            <p class="store-note">App launching soon</p>
+          </div>
         </div>
       </div>
       <div class="hero-image">
@@ -32,17 +35,29 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="section-title">The Challenge We're Solving</h2>
       <div class="problem-grid">
         <div class="problem-card">
-          <div class="problem-icon">❤️</div>
+          <div class="problem-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Dog Lovers' Dilemma</h3>
           <p>Many compassionate people want to help stray dogs but face challenges with household situations, financial constraints, and limited access to veterinary care.</p>
         </div>
         <div class="problem-card">
-          <div class="problem-icon">🏠</div>
+          <div class="problem-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Overwhelmed NGOs</h3>
           <p>Animal welfare organizations struggle with limited space, resources, financial assistance, and network reach to help all dogs in need.</p>
         </div>
         <div class="problem-card">
-          <div class="problem-icon">🔍</div>
+          <div class="problem-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Finding Help is Hard</h3>
           <p>Locating dog shelters, adoption centers, and veterinary services in your area is often difficult and time-consuming.</p>
         </div>
@@ -82,27 +97,51 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="section-title">Dog Help Resources</h2>
       <div class="resources-grid">
         <div class="resource-item">
-          <span class="resource-icon">🏥</span>
+          <span class="resource-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/>
+            </svg>
+          </span>
           <span>Vet Clinics</span>
         </div>
         <div class="resource-item">
-          <span class="resource-icon">💕</span>
+          <span class="resource-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+            </svg>
+          </span>
           <span>Dog Lovers</span>
         </div>
         <div class="resource-item">
-          <span class="resource-icon">🍖</span>
+          <span class="resource-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L14.88 11.53z" fill="currentColor"/>
+            </svg>
+          </span>
           <span>Dog Feeders</span>
         </div>
         <div class="resource-item">
-          <span class="resource-icon">🏠</span>
+          <span class="resource-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/>
+            </svg>
+          </span>
           <span>Rescue Shelters</span>
         </div>
         <div class="resource-item">
-          <span class="resource-icon">🤝</span>
+          <span class="resource-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.41 3.19c-.32.42-.26 1.02.14 1.37l2.41 2.13L12.92 18H11v2h1.5c.28 0 .5-.22.5-.5 0-.1-.04-.19-.1-.26L11.18 18H9.97L8 16.5l1.18-1.18L11.5 17H13l2.5-3.22L12.4 11.2C12.18 11.07 12 10.84 12 10.5c0-.83.67-1.5 1.5-1.5H16l2.54 7.63L20 22z" fill="currentColor"/>
+            </svg>
+          </span>
           <span>NGOs</span>
         </div>
         <div class="resource-item">
-          <span class="resource-icon">🏡</span>
+          <span class="resource-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-6.81l5-4.5 5 4.5V18z" fill="currentColor"/>
+            </svg>
+          </span>
           <span>Adoption Centers</span>
         </div>
       </div>
@@ -199,6 +238,25 @@ import Layout from '../layouts/Layout.astro';
     font-size: clamp(0.85rem, 1.8vw, 1rem);
   }
 
+  .store-badge-container {
+    text-align: center;
+  }
+
+  .store-badge.disabled {
+    background-color: var(--light-cream);
+    color: var(--text-medium);
+    border: 2px solid var(--cream);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .store-note {
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
   .hero-image {
     display: flex;
     justify-content: center;
@@ -259,8 +317,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .problem-icon {
-    font-size: 3rem;
+    color: var(--primary-brown);
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .problem-icon svg {
+    width: 48px;
+    height: 48px;
   }
 
   .problem-card h3 {
@@ -354,7 +419,14 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .resource-icon {
-    font-size: 2rem;
+    color: var(--primary-brown);
+    display: flex;
+    justify-content: center;
+  }
+
+  .resource-icon svg {
+    width: 32px;
+    height: 32px;
   }
 
   /* CTA Section */
@@ -440,6 +512,10 @@ import Layout from '../layouts/Layout.astro';
       max-width: 100%;
     }
 
+    .store-badge-container {
+      width: 100%;
+    }
+
     .hero-image {
       min-height: 150px;
       margin-top: 1rem;
@@ -484,6 +560,10 @@ import Layout from '../layouts/Layout.astro';
     .store-badge {
       width: 100%;
       text-align: center;
+    }
+
+    .store-badge-container {
+      width: 100%;
     }
 
     .dog-illustration {

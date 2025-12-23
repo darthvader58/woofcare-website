@@ -158,25 +158,41 @@ import Layout from '../layouts/Layout.astro';
         <h3>Why Join WoofCare?</h3>
         <div class="info-cards">
           <div class="info-card">
-            <div class="info-icon">🌐</div>
+            <div class="info-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+            </div>
             <h4>Expand Your Reach</h4>
             <p>Connect with dog lovers and potential adopters in your area through our network.</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">🤝</div>
+            <div class="info-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.41 3.19c-.32.42-.26 1.02.14 1.37l2.41 2.13L12.92 18H11v2h1.5c.28 0 .5-.22.5-.5 0-.1-.04-.19-.1-.26L11.18 18H9.97L8 16.5l1.18-1.18L11.5 17H13l2.5-3.22L12.4 11.2C12.18 11.07 12 10.84 12 10.5c0-.83.67-1.5 1.5-1.5H16l2.54 7.63L20 22z" fill="currentColor"/>
+              </svg>
+            </div>
             <h4>Collaborate</h4>
             <p>Work together with other NGOs, shelters, and caregivers to help more dogs.</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">📱</div>
+            <div class="info-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" fill="currentColor"/>
+              </svg>
+            </div>
             <h4>Get Discovered</h4>
             <p>Be featured on the WoofCare app when it launches, connecting you with people who want to help.</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">💡</div>
+            <div class="info-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 11H7v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9h-2m-4-4V3a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v2H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2h-2M9 5h4v2H9V5z" fill="currentColor"/>
+              </svg>
+            </div>
             <h4>Share Resources</h4>
             <p>Access crowdfunding tools and community support to sustain your operations.</p>
           </div>
@@ -380,8 +396,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .info-icon {
-    font-size: 2.5rem;
+    color: var(--primary-brown);
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .info-icon svg {
+    width: 40px;
+    height: 40px;
   }
 
   .info-card h4 {
@@ -447,8 +470,8 @@ import Layout from '../layouts/Layout.astro';
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  console.log('🔥 Firebase loaded from CDN');
-  console.log('📊 Database instance:', db);
+  console.log('Firebase loaded from CDN');
+  console.log('Database instance:', db);
 
   // Join form handling with Firebase
   const form = document.getElementById('joinForm');
@@ -507,7 +530,7 @@ import Layout from '../layouts/Layout.astro';
 
   // Validation function
   function validateForm() {
-    console.log('🔍 Validating form...');
+    console.log('Validating form...');
     let isValid = true;
     let firstErrorField = null;
 
@@ -541,7 +564,7 @@ import Layout from '../layouts/Layout.astro';
           firstErrorField = input;
         }
         
-        console.log(`❌ Validation failed: ${field.name} is empty`);
+        console.log(`Validation failed: ${field.name} is empty`);
       }
     });
 
@@ -551,13 +574,13 @@ import Layout from '../layouts/Layout.astro';
       if (!firstErrorField) {
         firstErrorField = document.getElementById('phone');
       }
-      console.log('❌ Validation failed: No contact method provided');
+      console.log('Validation failed: No contact method provided');
     }
 
     if (isValid) {
-      console.log('✅ Form validation passed!');
+      console.log('Form validation passed!');
     } else {
-      console.log('❌ Form validation failed - please fill required fields');
+      console.log('Form validation failed - please fill required fields');
       
       // Scroll to the first error field
       if (firstErrorField) {
@@ -566,7 +589,7 @@ import Layout from '../layouts/Layout.astro';
           block: 'center' 
         });
         firstErrorField.focus();
-        console.log('📍 Scrolled to first missing field');
+        console.log('Scrolled to first missing field');
       }
     }
 
@@ -574,19 +597,19 @@ import Layout from '../layouts/Layout.astro';
   }
 
   if (form) {
-    console.log('✅ Form found, event listener attached');
+    console.log('Form found, event listener attached');
     
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log('📝 Form submit button clicked!');
+      console.log('Form submit button clicked!');
 
       // Validate form
       if (!validateForm()) {
-        console.log('⚠️ Form submission blocked due to validation errors');
+        console.log('Form submission blocked due to validation errors');
         return;
       }
 
-      console.log('✅ Form validation passed, proceeding with submission...');
+      console.log('Form validation passed, proceeding with submission...');
 
       // Disable submit button and show loader
       submitBtn.disabled = true;
@@ -612,14 +635,14 @@ import Layout from '../layouts/Layout.astro';
       };
 
       try {
-        console.log('🔄 Attempting to submit data to Firestore:', data);
-        console.log('📊 Database reference:', db);
+        console.log('Attempting to submit data to Firestore:', data);
+        console.log('Database reference:', db);
         
         // Add document to 'organizations' collection
         const docRef = await addDoc(collection(db, 'organizations'), data);
         
-        console.log('✅ SUCCESS! Document written with ID:', docRef.id);
-        console.log('🎉 Form submitted successfully to Firebase!');
+        console.log('SUCCESS! Document written with ID:', docRef.id);
+        console.log('Form submitted successfully to Firebase!');
         
         // Show success message
         formMessage.textContent = 'Thank you for joining WoofCare! Your organization has been successfully registered.';
@@ -636,7 +659,7 @@ import Layout from '../layouts/Layout.astro';
         
       } catch (error) {
         // Show detailed error message
-        console.error('❌ ERROR adding document:', error);
+        console.error('ERROR adding document:', error);
         console.error('Error code:', error.code);
         console.error('Error message:', error.message);
         
@@ -706,6 +729,6 @@ import Layout from '../layouts/Layout.astro';
     });
 
   } else {
-    console.error('❌ Form not found! Check if id="joinForm" exists');
+    console.error('Form not found! Check if id="joinForm" exists');
   }
 </script>

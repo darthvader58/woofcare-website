@@ -71,19 +71,31 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="solution-features">
         <div class="solution-feature">
-          <div class="feature-icon">📢</div>
+          <div class="feature-icon">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Report Need for Care or Help</h3>
           <p>Users can easily report stray dogs in need through the app, sharing location, photos, and details to mobilize quick assistance.</p>
         </div>
 
         <div class="solution-feature">
-          <div class="feature-icon">🤝</div>
+          <div class="feature-icon">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.41 3.19c-.32.42-.26 1.02.14 1.37l2.41 2.13L12.92 18H11v2h1.5c.28 0 .5-.22.5-.5 0-.1-.04-.19-.1-.26L11.18 18H9.97L8 16.5l1.18-1.18L11.5 17H13l2.5-3.22L12.4 11.2C12.18 11.07 12 10.84 12 10.5c0-.83.67-1.5 1.5-1.5H16l2.54 7.63L20 22z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Help or Find Help</h3>
           <p>Connect instantly with nearby veterinary clinics, rescue shelters, NGOs, dog feeders, and potential adopters to provide or receive assistance.</p>
         </div>
 
         <div class="solution-feature">
-          <div class="feature-icon">✨</div>
+          <div class="feature-icon">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Inspire Others to Join</h3>
           <p>Share success stories, adoption updates, and rescue experiences to build a thriving community of dog lovers making a real impact.</p>
         </div>
@@ -175,19 +187,31 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="section-title">Our Impact Vision</h2>
       <div class="impact-grid">
         <div class="impact-card">
-          <div class="impact-icon">🛡️</div>
+          <div class="impact-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C14.8,12.6 13.9,13.5 12.8,13.5H11.2C10.1,13.5 9.2,12.6 9.2,11.5V10C9.2,8.6 10.6,7 12,7Z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Safer Environment</h3>
           <p>Creating safer communities for citizens, protecting against rabies infection and dog attacks through better care and management.</p>
         </div>
 
         <div class="impact-card">
-          <div class="impact-icon">🎓</div>
+          <div class="impact-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5,3H7V5.5L9.5,3H16.5C18.71,3 20.39,4.81 20.5,7L15,12L20.5,17C20.39,19.19 18.71,21 16.5,21H9.5L7,18.5V21H5V3M9,5V7H16.5C17.85,7 19,8.15 19,9.5C19,10.85 17.85,12 16.5,12H9V14H16.5C17.85,14 19,15.15 19,16.5C19,17.85 17.85,19 16.5,19H9V17H7V5H9Z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Raise Awareness</h3>
           <p>Educating people about nearby help resources and teaching how to safely help stray dogs without getting hurt.</p>
         </div>
 
         <div class="impact-card">
-          <div class="impact-icon">🏡</div>
+          <div class="impact-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-6.81l5-4.5 5 4.5V18z" fill="currentColor"/>
+            </svg>
+          </div>
           <h3>Provide Homes</h3>
           <p>Finding loving forever homes for innocent, helpless abandoned stray dogs through our adoption network.</p>
         </div>
@@ -336,8 +360,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .feature-icon {
-    font-size: 3.5rem;
+    color: var(--primary-brown);
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .feature-icon svg {
+    width: 56px;
+    height: 56px;
   }
 
   .solution-feature h3 {
@@ -527,8 +558,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .impact-icon {
-    font-size: 3rem;
+    color: var(--primary-brown);
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .impact-icon svg {
+    width: 48px;
+    height: 48px;
   }
 
   .impact-card h3 {

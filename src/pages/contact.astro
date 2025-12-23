@@ -84,28 +84,24 @@ import Layout from '../layouts/Layout.astro';
         <!-- Contact Info -->
         <div class="contact-info">
           <div class="info-card">
-            <div class="info-icon">📧</div>
             <h3>Email Us</h3>
             <p><a href="mailto:woofcareepics@gmail.com">woofcareepics@gmail.com</a></p>
             <p class="info-description">We'll respond within 24-48 hours</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">🐕</div>
             <h3>'Get help' to help a Stray Dog</h3>
             <p>Coming Soon on Google Play</p>
             <p class="info-description">Download our app to report dogs in need instantly</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">🤝</div>
             <h3>Partner With Us</h3>
             <p>Are you an NGO or shelter?</p>
             <p class="info-description">Contact us to join our network and help more dogs</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">💡</div>
             <h3>Have Suggestions?</h3>
             <p>We value your feedback</p>
             <p class="info-description">Share your ideas to improve WoofCare</p>
@@ -197,14 +193,43 @@ import Layout from '../layouts/Layout.astro';
 
   .contact-form-container {
     background-color: var(--white);
-    padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .contact-form-container h2 {
     color: var(--dark-brown);
     margin-bottom: 2rem;
+    padding: 2.5rem 2.5rem 0;
+    flex-shrink: 0;
+  }
+
+  .contact-form {
+    padding: 0 2.5rem 2.5rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Custom scrollbar for the form */
+  .contact-form::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .contact-form::-webkit-scrollbar-track {
+    background: var(--light-cream);
+    border-radius: 4px;
+  }
+
+  .contact-form::-webkit-scrollbar-thumb {
+    background: var(--primary-brown);
+    border-radius: 4px;
+  }
+
+  .contact-form::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-brown);
   }
 
   .form-group {
@@ -252,6 +277,7 @@ import Layout from '../layouts/Layout.astro';
     text-align: center;
     font-weight: 600;
     display: none;
+    margin-bottom: 0;
   }
 
   .form-message.success {
@@ -285,11 +311,6 @@ import Layout from '../layouts/Layout.astro';
   .info-card:hover {
     transform: translateX(10px);
     box-shadow: 0 4px 15px rgba(184, 121, 43, 0.2);
-  }
-
-  .info-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.75rem;
   }
 
   .info-card h3 {
@@ -390,6 +411,10 @@ import Layout from '../layouts/Layout.astro';
       grid-template-columns: 1fr;
     }
 
+    .contact-form-container {
+      max-height: 70vh;
+    }
+
     .contact-hero h1 {
       font-size: 2.5rem;
     }
@@ -440,4 +465,31 @@ import Layout from '../layouts/Layout.astro';
       }, 5000);
     });
   }
+
+  // Match form container height to info boxes height
+  function matchHeights() {
+    const formContainer = document.querySelector('.contact-form-container') as HTMLElement;
+    const contactInfo = document.querySelector('.contact-info') as HTMLElement;
+    
+    if (formContainer && contactInfo && window.innerWidth > 968) {
+      // Reset height first
+      formContainer.style.height = 'auto';
+      
+      // Get the height of the contact info section
+      const infoHeight = contactInfo.offsetHeight;
+      
+      // Set the form container to match
+      formContainer.style.height = `${infoHeight}px`;
+    } else if (formContainer && window.innerWidth <= 968) {
+      // Reset height on mobile
+      formContainer.style.height = 'auto';
+    }
+  }
+
+  // Run on load and resize
+  window.addEventListener('load', matchHeights);
+  window.addEventListener('resize', matchHeights);
+  
+  // Run after a short delay to ensure all content is loaded
+  setTimeout(matchHeights, 100);
 </script>

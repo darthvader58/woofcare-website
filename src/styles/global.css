@@ -92,7 +92,7 @@ button {
 }
 
 .container {
-  width: min(100% - 2rem, 1180px);
+  width: min(100% - 1.2rem, 1280px);
   margin: 0 auto;
   padding: 0;
 }
@@ -196,7 +196,7 @@ button:focus-visible {
 
 @media (max-width: 768px) {
   .container {
-    width: min(100% - 1.25rem, 1180px);
+    width: min(100% - 0.75rem, 1280px);
   }
 
   .section {

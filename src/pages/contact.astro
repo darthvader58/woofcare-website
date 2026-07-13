@@ -519,6 +519,31 @@ import Layout from '../layouts/Layout.astro';
       flex-direction: column;
       align-items: center;
     }
+
+    .cta-buttons .btn {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-form-container h2 {
+      padding: 1.75rem 1.5rem 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-form {
+      padding: 0 1.5rem 1.75rem;
+    }
+
+    .info-card,
+    .faq-item {
+      padding: 1.25rem;
+    }
+
+    .cta-content {
+      padding: 1.75rem 1.25rem;
+    }
   }
 </style>
 

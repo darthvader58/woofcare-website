@@ -1,5 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Firebase App Check site key (reCAPTCHA v3). Read at build time — the site is
+// `output: 'static'` — and handed to the client through a data attribute below.
+// It cannot be read inside the <script>: that tag carries an attribute, so Astro
+// treats it as `is:inline` and never substitutes `import.meta.env` in it.
+// A reCAPTCHA site key is public by design; the secret half lives in Firebase.
+const appCheckSiteKey = import.meta.env.PUBLIC_RECAPTCHA_V3_SITE_KEY ?? '';
 ---
 
 <Layout title="Join Us" description="Join the WoofCare network. Register your organization to help stray dogs in your community.">
@@ -20,15 +27,16 @@ import Layout from '../layouts/Layout.astro';
           <p>Help us build a comprehensive network of dog care resources. Fill out the form below to register your organization.</p>
         </div>
 
-        <form class="join-form" id="joinForm" novalidate>
+        <form class="join-form" id="joinForm" novalidate data-appcheck-key={appCheckSiteKey}>
           <!-- Organization Name -->
           <div class="form-group">
             <label for="orgName">What is the name of the organization? *</label>
-            <input 
-              type="text" 
-              id="orgName" 
-              name="orgName" 
-              required 
+            <input
+              type="text"
+              id="orgName"
+              name="orgName"
+              required
+              maxlength="200"
               placeholder="Enter organization name"
             />
             <span class="error-message" id="orgName-error"></span>
@@ -42,7 +50,6 @@ import Layout from '../layouts/Layout.astro';
               <option value="NGO">NGO</option>
               <option value="Rescue/Shelter">Rescue/Shelter</option>
               <option value="Vet Clinic/Animal Hospital">Vet Clinic/Animal Hospital</option>
-              <option value="Local Caretaker/Feeder">Local Caretaker/Feeder</option>
             </select>
             <span class="error-message" id="orgType-error"></span>
           </div>
@@ -50,48 +57,54 @@ import Layout from '../layouts/Layout.astro';
           <!-- Website Link -->
           <div class="form-group">
             <label for="website">Website link?</label>
-            <input 
-              type="url" 
-              id="website" 
-              name="website" 
+            <input
+              type="url"
+              id="website"
+              name="website"
+              maxlength="500"
               placeholder="https://example.com"
             />
+            <span class="error-message" id="website-error"></span>
+            <span class="helper-text">Counts as a contact method</span>
           </div>
 
           <!-- Phone Number -->
           <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input 
-              type="tel" 
-              id="phone" 
-              name="phone" 
-              placeholder="+1 (555) 123-4567"
+            <label for="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              maxlength="20"
+              placeholder="+91 98765 43210"
             />
             <span class="error-message" id="phone-error"></span>
-            <span class="helper-text">Must be 10 digits. At least one contact method (phone or email) is required</span>
+            <span class="helper-text">10&ndash;15 digits; a country code such as +91 is fine. At least one contact method (phone, email, or website) is required</span>
           </div>
 
           <!-- Email -->
           <div class="form-group">
-            <label for="email">Email *</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              maxlength="200"
               placeholder="contact@example.com"
             />
             <span class="error-message" id="email-error"></span>
-            <span class="helper-text">At least one contact method (phone or email) is required</span>
+            <span class="helper-text">At least one contact method (phone, email, or website) is required</span>
           </div>
 
           <!-- Name of Person in Charge -->
           <div class="form-group">
             <label for="personInCharge">Name of person in charge *</label>
-            <input 
-              type="text" 
-              id="personInCharge" 
-              name="personInCharge" 
-              required 
+            <input
+              type="text"
+              id="personInCharge"
+              name="personInCharge"
+              required
+              maxlength="200"
               placeholder="Enter full name"
             />
             <span class="error-message" id="personInCharge-error"></span>
@@ -100,11 +113,12 @@ import Layout from '../layouts/Layout.astro';
           <!-- Location/Address -->
           <div class="form-group">
             <label for="location">Location/Address *</label>
-            <textarea 
-              id="location" 
-              name="location" 
-              rows="3" 
-              required 
+            <textarea
+              id="location"
+              name="location"
+              rows="3"
+              required
+              maxlength="300"
               placeholder="Enter complete address with city and state"
             ></textarea>
             <span class="error-message" id="location-error"></span>
@@ -113,34 +127,42 @@ import Layout from '../layouts/Layout.astro';
           <!-- Date of Establishment -->
           <div class="form-group">
             <label for="dateEstablished">Date of Establishment</label>
-            <input 
-              type="date" 
-              id="dateEstablished" 
+            <input
+              type="date"
+              id="dateEstablished"
               name="dateEstablished"
             />
+            <span class="error-message" id="dateEstablished-error"></span>
           </div>
 
           <!-- Number of Centers -->
           <div class="form-group">
             <label for="numCenters">Number of Centers?</label>
-            <input 
-              type="number" 
-              id="numCenters" 
-              name="numCenters" 
-              min="0" 
+            <input
+              type="number"
+              id="numCenters"
+              name="numCenters"
+              min="0"
+              max="100000"
+              step="1"
               placeholder="0"
             />
+            <span class="error-message" id="numCenters-error"></span>
           </div>
 
-          <!-- Social Media -->
+          <!-- Optional map pin -->
           <div class="form-group">
-            <label for="socialMedia">Social Media if Applicable (Instagram, Facebook, Youtube, etc.)</label>
-            <textarea 
-              id="socialMedia" 
-              name="socialMedia" 
-              rows="3" 
-              placeholder="Enter social media links (one per line)"
-            ></textarea>
+            <label for="findOnMapBtn">Pin your location on the map</label>
+            <span class="helper-text">Optional. A pin lets WoofCare place your organization on the app's map. Skip it and the rest of the form still submits normally.</span>
+            <div class="map-actions">
+              <button type="button" class="btn-map" id="findOnMapBtn">Find my address on the map</button>
+              <button type="button" class="btn-map btn-map-clear" id="clearPinBtn" hidden>Remove pin</button>
+            </div>
+            <div id="mapContainer" class="map-container" hidden></div>
+            <span class="helper-text" id="coordsReadout"></span>
+            <span class="error-message" id="coords-error"></span>
+            <input type="hidden" id="latitude" name="latitude" />
+            <input type="hidden" id="longitude" name="longitude" />
           </div>
 
           <!-- Submit Button -->
@@ -322,6 +344,56 @@ import Layout from '../layouts/Layout.astro';
     font-style: italic;
     margin-top: 0.25rem;
     display: block;
+  }
+
+  .map-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .btn-map {
+    padding: 0.7rem 1.25rem;
+    border: 1px solid rgba(111, 67, 31, 0.24);
+    border-radius: 14px;
+    background: var(--white);
+    color: var(--deep-brown);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .btn-map:hover:not(:disabled) {
+    border-color: var(--primary-brown);
+    background: var(--light-cream);
+  }
+
+  .btn-map:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-map-clear {
+    color: #b3261e;
+    border-color: rgba(179, 38, 30, 0.28);
+  }
+
+  /* Leaflet needs an explicitly sized container, and its panes sit at a high
+     stacking order by default — keep them below the page's own chrome. */
+  .map-container {
+    margin-top: 0.9rem;
+    height: 320px;
+    border-radius: 16px;
+    border: 1px solid rgba(111, 67, 31, 0.16);
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .map-container[hidden] {
+    display: none;
   }
 
   .submit-btn {
@@ -552,10 +624,10 @@ import Layout from '../layouts/Layout.astro';
   }
 </style>
 
-<script type="module">
+<script type="module" is:inline>
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
   import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
+  import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyCvzQDGbU8ndDGJ3mGCeWA0mSsCNRhsbt0",
@@ -567,269 +639,409 @@ import Layout from '../layouts/Layout.astro';
     measurementId: "G-FJDV4K81CK"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  console.log('Firebase loaded from CDN');
-  console.log('Database instance:', db);
-
-  // Join form handling with Firebase
   const form = document.getElementById('joinForm');
   const formMessage = document.getElementById('formMessage');
   const submitBtn = form?.querySelector('.submit-btn');
   const btnText = submitBtn?.querySelector('.btn-text');
   const btnLoader = submitBtn?.querySelector('.btn-loader');
 
-  // Function to validate contact information (phone or email)
-  function validateContactInfo() {
-    const phoneInput = document.getElementById('phone');
-    const emailInput = document.getElementById('email');
-    const phoneError = document.getElementById('phone-error');
-    const emailError = document.getElementById('email-error');
-    
-    const phoneValue = phoneInput.value.trim();
-    const emailValue = emailInput.value.trim();
-    
-    let isValid = true;
-    
-    // Check if at least one is filled
-    if (!phoneValue && !emailValue) {
-      phoneError.textContent = 'Please provide at least one contact method';
-      emailError.textContent = 'Please provide at least one contact method';
-      phoneInput.classList.add('error');
-      emailInput.classList.add('error');
-      return false;
-    }
-    
-    // If phone is provided, validate it's exactly 10 digits
-    if (phoneValue) {
-      // Remove all non-digit characters for validation
-      const digitsOnly = phoneValue.replace(/\D/g, '');
-      
-      if (digitsOnly.length !== 10) {
-        phoneError.textContent = 'Phone number must be exactly 10 digits';
-        phoneInput.classList.add('error');
-        isValid = false;
-      } else {
-        phoneError.textContent = '';
-        phoneInput.classList.remove('error');
-      }
-    } else {
-      phoneError.textContent = '';
-      phoneInput.classList.remove('error');
-    }
-    
-    // Clear email error if phone is valid or email is provided
-    if (isValid || emailValue) {
-      emailError.textContent = '';
-      emailInput.classList.remove('error');
-    }
-    
-    return isValid;
+  const app = initializeApp(firebaseConfig);
+
+  // App Check has to be initialised before any Firestore traffic, or the first
+  // write goes out untokenised. The site key arrives via a data attribute set
+  // in the frontmatter: this script carries an attribute, so Astro treats it as
+  // `is:inline` and never substitutes `import.meta.env` inside it.
+  const appCheckSiteKey = form?.dataset.appcheckKey || '';
+
+  if (appCheckSiteKey) {
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(appCheckSiteKey),
+      isTokenAutoRefreshEnabled: true
+    });
+  } else {
+    console.warn(
+      'App Check is not configured (PUBLIC_RECAPTCHA_V3_SITE_KEY is unset). ' +
+      'Submissions will start failing once App Check enforcement is turned on for Firestore.'
+    );
   }
 
-  // Validation function
-  function validateForm() {
-    console.log('Validating form...');
-    let isValid = true;
-    let firstErrorField = null;
+  const db = getFirestore(app);
 
-    // Clear all previous errors
-    document.querySelectorAll('.error-message').forEach(el => {
-      el.textContent = '';
-    });
-    document.querySelectorAll('.error').forEach(el => {
-      el.classList.remove('error');
-    });
+  // Mirrors isValidOrgSubmission in the app repo's firestore.rules. That rule is
+  // the security boundary; these limits exist only so a user gets inline
+  // feedback instead of a silent Firestore rejection. Keep the two in step.
+  const LIMITS = {
+    orgName: 200,
+    location: 300,
+    personInCharge: 200,
+    dateEstablished: 100,
+    phone: 20,
+    email: 200,
+    website: 500,
+    numCentersMax: 100000
+  };
 
-    // Required fields
-    const requiredFields = [
-      { id: 'orgName', name: 'Organization name' },
-      { id: 'orgType', name: 'Organization type' },
-      { id: 'personInCharge', name: 'Person in charge' },
-      { id: 'location', name: 'Location/Address' }
-    ];
+  const CONTACT_FIELDS = ['phone', 'email', 'website'];
 
-    requiredFields.forEach(field => {
-      const input = document.getElementById(field.id);
-      const errorElement = document.getElementById(`${field.id}-error`);
-      
-      if (!input.value.trim()) {
-        errorElement.textContent = `${field.name} is required`;
-        input.classList.add('error');
-        isValid = false;
-        
-        // Store the first error field
-        if (!firstErrorField) {
-          firstErrorField = input;
-        }
-        
-        console.log(`Validation failed: ${field.name} is empty`);
-      }
-    });
+  const latInput = document.getElementById('latitude');
+  const lngInput = document.getElementById('longitude');
+  const mapContainer = document.getElementById('mapContainer');
+  const findOnMapBtn = document.getElementById('findOnMapBtn');
+  const clearPinBtn = document.getElementById('clearPinBtn');
+  const coordsReadout = document.getElementById('coordsReadout');
 
-    // Validate contact information (phone or email)
-    if (!validateContactInfo()) {
-      isValid = false;
-      if (!firstErrorField) {
-        firstErrorField = document.getElementById('phone');
-      }
-      console.log('Validation failed: No contact method provided');
-    }
-
-    if (isValid) {
-      console.log('Form validation passed!');
-    } else {
-      console.log('Form validation failed - please fill required fields');
-      
-      // Scroll to the first error field
-      if (firstErrorField) {
-        firstErrorField.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
-        firstErrorField.focus();
-        console.log('Scrolled to first missing field');
-      }
-    }
-
-    return isValid;
+  function value(id) {
+    return (document.getElementById(id)?.value || '').trim();
   }
 
-  if (form) {
-    console.log('Form found, event listener attached');
-    
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      console.log('Form submit button clicked!');
+  function setFieldError(id, message) {
+    const field = document.getElementById(id);
+    const errorElement = document.getElementById(`${id}-error`);
 
-      // Validate form
-      if (!validateForm()) {
-        console.log('Form submission blocked due to validation errors');
+    if (errorElement) {
+      errorElement.textContent = message || '';
+    }
+
+    if (field) {
+      field.classList.toggle('error', Boolean(message));
+    }
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.error-message').forEach((element) => {
+      element.textContent = '';
+    });
+    document.querySelectorAll('.error').forEach((element) => {
+      element.classList.remove('error');
+    });
+  }
+
+  function showFormMessage(text, type) {
+    formMessage.textContent = text;
+    formMessage.className = `form-message ${type}`;
+    formMessage.style.display = '';
+    formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // --- Optional map pin -----------------------------------------------------
+  // Leaflet + OpenStreetMap, loaded lazily on first use so the form stays light
+  // for the majority who skip the picker. No API key, so nothing to leak.
+
+  const DEFAULT_CENTRE = [18.5204, 73.8567]; // Pune
+  let leafletPromise = null;
+  let leafletMap = null;
+  let pinMarker = null;
+
+  function loadLeaflet() {
+    if (!leafletPromise) {
+      const stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(stylesheet);
+      leafletPromise = import('https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js');
+    }
+    return leafletPromise;
+  }
+
+  function setPin(lat, lng) {
+    latInput.value = String(lat);
+    lngInput.value = String(lng);
+    coordsReadout.textContent =
+      `Pin set at ${lat.toFixed(5)}, ${lng.toFixed(5)}. Drag it, or click elsewhere on the map, to adjust.`;
+    clearPinBtn.hidden = false;
+    setFieldError('coords', '');
+  }
+
+  function clearPin() {
+    latInput.value = '';
+    lngInput.value = '';
+    coordsReadout.textContent = '';
+    clearPinBtn.hidden = true;
+
+    if (pinMarker && leafletMap) {
+      leafletMap.removeLayer(pinMarker);
+      pinMarker = null;
+    }
+  }
+
+  function placeMarker(L, lat, lng) {
+    if (pinMarker) {
+      pinMarker.setLatLng([lat, lng]);
+    } else {
+      pinMarker = L.marker([lat, lng], { draggable: true }).addTo(leafletMap);
+      pinMarker.on('dragend', () => {
+        const position = pinMarker.getLatLng();
+        setPin(position.lat, position.lng);
+      });
+    }
+    setPin(lat, lng);
+  }
+
+  async function ensureMap() {
+    const L = await loadLeaflet();
+
+    mapContainer.hidden = false;
+
+    if (!leafletMap) {
+      leafletMap = L.map(mapContainer).setView(DEFAULT_CENTRE, 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(leafletMap);
+      leafletMap.on('click', (event) => placeMarker(L, event.latlng.lat, event.latlng.lng));
+    }
+
+    // Leaflet mis-measures a container that was hidden when it was created.
+    setTimeout(() => leafletMap.invalidateSize(), 0);
+    return L;
+  }
+
+  async function geocodeAddress(address) {
+    const url =
+      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+
+    if (!response.ok) {
+      throw new Error(`Geocoder responded ${response.status}`);
+    }
+
+    const results = await response.json();
+    return results.length
+      ? { lat: Number(results[0].lat), lng: Number(results[0].lon) }
+      : null;
+  }
+
+  findOnMapBtn?.addEventListener('click', async () => {
+    const originalLabel = findOnMapBtn.textContent;
+    findOnMapBtn.disabled = true;
+    findOnMapBtn.textContent = 'Loading map...';
+
+    try {
+      const L = await ensureMap();
+      const address = value('location');
+
+      if (!address) {
+        setFieldError('coords', 'Enter your address above first, or click the map to place a pin yourself.');
         return;
       }
 
-      console.log('Form validation passed, proceeding with submission...');
+      const hit = await geocodeAddress(address);
 
-      // Disable submit button and show loader
+      if (hit) {
+        leafletMap.setView([hit.lat, hit.lng], 16);
+        placeMarker(L, hit.lat, hit.lng);
+      } else {
+        setFieldError('coords', "We couldn't find that address. Click the map to place your pin manually.");
+      }
+    } catch (error) {
+      console.error('Map or geocoding lookup failed:', error);
+      setFieldError('coords', "The map couldn't be loaded right now. You can still submit without a pin.");
+    } finally {
+      findOnMapBtn.disabled = false;
+      findOnMapBtn.textContent = originalLabel;
+    }
+  });
+
+  clearPinBtn?.addEventListener('click', clearPin);
+
+  // --- Validation -----------------------------------------------------------
+
+  function validateForm() {
+    clearErrors();
+
+    let firstErrorField = null;
+
+    const fail = (id, message) => {
+      setFieldError(id, message);
+      if (!firstErrorField) {
+        firstErrorField = document.getElementById(id);
+      }
+    };
+
+    const requiredFields = [
+      { id: 'orgName', label: 'Organization name' },
+      { id: 'orgType', label: 'Organization type' },
+      { id: 'personInCharge', label: 'Person in charge' },
+      { id: 'location', label: 'Location/Address' }
+    ];
+
+    requiredFields.forEach(({ id, label }) => {
+      const text = value(id);
+
+      if (!text) {
+        fail(id, `${label} is required`);
+      } else if (LIMITS[id] && text.length > LIMITS[id]) {
+        fail(id, `${label} must be ${LIMITS[id]} characters or fewer`);
+      }
+    });
+
+    if (value('dateEstablished').length > LIMITS.dateEstablished) {
+      fail('dateEstablished', `Date must be ${LIMITS.dateEstablished} characters or fewer`);
+    }
+
+    const numCentersRaw = value('numCenters');
+    if (numCentersRaw) {
+      const parsed = Number.parseInt(numCentersRaw, 10);
+      if (!Number.isFinite(parsed) || parsed < 0 || parsed > LIMITS.numCentersMax) {
+        fail('numCenters', `Enter a whole number between 0 and ${LIMITS.numCentersMax}`);
+      }
+    }
+
+    CONTACT_FIELDS.forEach((id) => {
+      const text = value(id);
+      if (text && text.length > LIMITS[id]) {
+        fail(id, `Must be ${LIMITS[id]} characters or fewer`);
+      }
+    });
+
+    // Accept a country code: +91 numbers are 12 digits, and E.164 tops out at 15.
+    const phone = value('phone');
+    if (phone) {
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length < 10 || digits.length > 15) {
+        fail('phone', 'Enter a phone number with 10 to 15 digits');
+      }
+    }
+
+    if (!CONTACT_FIELDS.some((id) => value(id))) {
+      CONTACT_FIELDS.forEach((id) => setFieldError(id, 'Provide at least one of phone, email, or website'));
+      if (!firstErrorField) {
+        firstErrorField = document.getElementById('phone');
+      }
+    }
+
+    // Coordinates are both-or-neither in the rule. The picker keeps them in
+    // step, but refuse a half-filled pair rather than let Firestore reject it.
+    if (Boolean(latInput.value.trim()) !== Boolean(lngInput.value.trim())) {
+      setFieldError('coords', 'The map pin is incomplete. Remove it and try again.');
+      if (!firstErrorField) {
+        firstErrorField = findOnMapBtn;
+      }
+    }
+
+    if (firstErrorField) {
+      firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      firstErrorField.focus();
+      return false;
+    }
+
+    return true;
+  }
+
+  // --- Payload --------------------------------------------------------------
+
+  function buildSubmission() {
+    const parsedCenters = Number.parseInt(value('numCenters'), 10);
+
+    // The eight required keys. The rule reads every one of them
+    // unconditionally, so none may be omitted — `dateEstablished` allows "" but
+    // still has to be present.
+    const data = {
+      orgName: value('orgName'),
+      orgType: value('orgType'),
+      location: value('location'),
+      personInCharge: value('personInCharge'),
+      numCenters: Number.isFinite(parsedCenters) ? parsedCenters : 0,
+      dateEstablished: value('dateEstablished'),
+      status: 'pending',
+      createdAt: serverTimestamp()
+    };
+
+    // Optional contact fields are omitted entirely when blank: the rule is
+    // written against key presence, so "" would fail the length check.
+    CONTACT_FIELDS.forEach((id) => {
+      const text = value(id);
+      if (text) {
+        data[id] = text;
+      }
+    });
+
+    // Optional coordinates, both or neither.
+    const latitude = Number.parseFloat(latInput.value);
+    const longitude = Number.parseFloat(lngInput.value);
+    if (Number.isFinite(latitude) && Number.isFinite(longitude)) {
+      data.latitude = latitude;
+      data.longitude = longitude;
+    }
+
+    return data;
+  }
+
+  // Inspect the exact document that would be written, without submitting:
+  // run __woofcarePreviewSubmission() in the browser console.
+  window.__woofcarePreviewSubmission = () => {
+    const preview = buildSubmission();
+    console.log('Document that would be written to `organizations`:', {
+      ...preview,
+      createdAt: '<serverTimestamp() sentinel>'
+    });
+    console.log('Key count:', Object.keys(preview).length, Object.keys(preview));
+    return preview;
+  };
+
+  // --- Submit ---------------------------------------------------------------
+
+  if (form) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!validateForm()) {
+        return;
+      }
+
       submitBtn.disabled = true;
       btnText.style.display = 'none';
       btnLoader.style.display = 'inline';
 
-      const formData = new FormData(form);
-      
-      // Prepare data object for Firestore
-      const data = {
-        orgName: formData.get('orgName'),
-        orgType: formData.get('orgType'),
-        website: formData.get('website') || '',
-        phone: formData.get('phone') || '',
-        email: formData.get('email') || '',
-        personInCharge: formData.get('personInCharge'),
-        location: formData.get('location'),
-        dateEstablished: formData.get('dateEstablished') || '',
-        numCenters: formData.get('numCenters') ? parseInt(formData.get('numCenters')) : 0,
-        socialMedia: formData.get('socialMedia') || '',
-        createdAt: serverTimestamp(),
-        status: 'pending'
-      };
-
       try {
-        console.log('Attempting to submit data to Firestore:', data);
-        console.log('Database reference:', db);
-        
-        // Add document to 'organizations' collection
-        const docRef = await addDoc(collection(db, 'organizations'), data);
-        
-        console.log('SUCCESS! Document written with ID:', docRef.id);
-        console.log('Form submitted successfully to Firebase!');
-        
-        // Show success message
-        formMessage.textContent = 'Thank you for joining WoofCare! Your organization has been successfully registered.';
-        formMessage.className = 'form-message success';
-        
-        // Scroll to success message so user sees it
-        formMessage.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
-        
-        // Reset form
+        const docRef = await addDoc(collection(db, 'organizations'), buildSubmission());
+        console.log('Organization registration written:', docRef.id);
+
+        showFormMessage(
+          'Thank you for joining WoofCare. Your organization has been registered and is pending review — ' +
+          'we will get in touch using the contact details you provided.',
+          'success'
+        );
+
         form.reset();
-        
+        clearPin();
+        clearErrors();
       } catch (error) {
-        // Show detailed error message
-        console.error('ERROR adding document:', error);
-        console.error('Error code:', error.code);
-        console.error('Error message:', error.message);
-        
-        formMessage.textContent = `Error: ${error.message}. Check browser console for details.`;
-        formMessage.className = 'form-message error';
-        
-        // Scroll to error message so user sees it
-        formMessage.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
+        // Never surface Firebase's own wording. "Missing or insufficient
+        // permissions" means nothing to an organization filling in a form.
+        console.error('Failed to submit organization registration:', error);
+
+        showFormMessage(
+          "Sorry, we couldn't submit your registration just now. Please check your details and try again. " +
+          "If the problem continues, email woofcareepics@gmail.com and we'll register you manually.",
+          'error'
+        );
       } finally {
-        // Re-enable submit button and hide loader
         submitBtn.disabled = false;
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
-        
-        // Hide message after 10 seconds
-        setTimeout(() => {
-          formMessage.style.display = 'none';
-        }, 10000);
       }
     });
 
-    // Real-time validation on blur for required fields
-    const requiredInputs = form.querySelectorAll('[required]');
-    requiredInputs.forEach(input => {
-      input.addEventListener('blur', () => {
-        const errorElement = document.getElementById(`${input.id}-error`);
-        if (!input.value.trim()) {
-          errorElement.textContent = 'This field is required';
-          input.classList.add('error');
-        } else {
-          errorElement.textContent = '';
-          input.classList.remove('error');
-        }
-      });
-
+    // Clear a field's error as soon as the user starts correcting it.
+    form.querySelectorAll('input, select, textarea').forEach((input) => {
       input.addEventListener('input', () => {
-        if (input.value.trim()) {
-          const errorElement = document.getElementById(`${input.id}-error`);
-          errorElement.textContent = '';
-          input.classList.remove('error');
+        if (input.id) {
+          setFieldError(input.id, '');
         }
       });
     });
 
-    // Real-time validation for contact fields (phone and email)
-    const phoneInput = document.getElementById('phone');
-    const emailInput = document.getElementById('email');
-
-    // Validate when either phone or email loses focus
-    phoneInput.addEventListener('blur', validateContactInfo);
-    emailInput.addEventListener('blur', validateContactInfo);
-
-    // Clear errors when user starts typing in either field
-    phoneInput.addEventListener('input', () => {
-      if (phoneInput.value.trim() || emailInput.value.trim()) {
-        validateContactInfo();
-      }
+    // The at-least-one-contact error is shown on all three fields at once, so
+    // clear all three as soon as any of them has something in it.
+    CONTACT_FIELDS.forEach((id) => {
+      document.getElementById(id)?.addEventListener('blur', () => {
+        if (CONTACT_FIELDS.some((field) => value(field))) {
+          CONTACT_FIELDS.forEach((field) => setFieldError(field, ''));
+        }
+      });
     });
-
-    emailInput.addEventListener('input', () => {
-      if (phoneInput.value.trim() || emailInput.value.trim()) {
-        validateContactInfo();
-      }
-    });
-
   } else {
-    console.error('Form not found! Check if id="joinForm" exists');
+    console.error('Join form not found: expected an element with id="joinForm"');
   }
 </script>

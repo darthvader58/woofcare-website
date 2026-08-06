@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// App Check enforcement is per-service and project-wide, so switching it on for
+// Firestore/Storage covers this page too — it needs the same token or its
+// writes start failing. See the identical block in join.astro.
+const appCheckSiteKey = import.meta.env.PUBLIC_RECAPTCHA_V3_SITE_KEY ?? '';
 ---
 
 <Layout title="Bug Report" description="Report an in-app or website issue to the WoofCare team with a screenshot or screen recording.">
@@ -19,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
           <p>Share what happened and attach the visual evidence of the issue. Screen recordings are accepted when a bug is easier to show in motion.</p>
         </div>
 
-        <form class="bug-form" id="bugForm" novalidate>
+        <form class="bug-form" id="bugForm" novalidate data-appcheck-key={appCheckSiteKey}>
           <div class="form-group">
             <label for="issueArea">Where did you find the issue?</label>
             <select id="issueArea" name="issueArea">
@@ -417,10 +422,11 @@ import Layout from '../layouts/Layout.astro';
   }
 </style>
 
-<script type="module">
+<script type="module" is:inline>
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
   import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
   import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+  import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyCvzQDGbU8ndDGJ3mGCeWA0mSsCNRhsbt0",
@@ -432,11 +438,28 @@ import Layout from '../layouts/Layout.astro';
     measurementId: "G-FJDV4K81CK"
   };
 
+  const form = document.getElementById('bugForm');
+
   const app = initializeApp(firebaseConfig);
+
+  // Must run before any Firestore or Storage traffic. Key comes from the data
+  // attribute because this script is inline and never sees `import.meta.env`.
+  const appCheckSiteKey = form?.dataset.appcheckKey || '';
+
+  if (appCheckSiteKey) {
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(appCheckSiteKey),
+      isTokenAutoRefreshEnabled: true
+    });
+  } else {
+    console.warn(
+      'App Check is not configured (PUBLIC_RECAPTCHA_V3_SITE_KEY is unset). ' +
+      'Bug reports will start failing once App Check enforcement is turned on.'
+    );
+  }
+
   const db = getFirestore(app);
   const storage = getStorage(app);
-
-  const form = document.getElementById('bugForm');
   const formMessage = document.getElementById('formMessage');
   const submitBtn = form?.querySelector('.submit-btn');
   const btnText = submitBtn?.querySelector('.btn-text');
@@ -590,7 +613,7 @@ import Layout from '../layouts/Layout.astro';
         }
       } catch (error) {
         console.error('Error submitting bug report:', error);
-        showFormMessage(`Error: ${error.message}. Please try again or contact woofcareepics@gmail.com.`, 'error');
+        showFormMessage("Sorry, we couldn't send your bug report just now. Please try again, or email woofcareepics@gmail.com with the details.", 'error');
       } finally {
         submitBtn.disabled = false;
         btnText.style.display = 'inline';

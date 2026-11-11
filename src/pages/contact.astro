@@ -1,14 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import bannerImage from '../assets/stray-dog-resting.jpg';
 ---
 
 <Layout title="Contact Us" description="Get in touch with WoofCare. We'd love to hear from you!">
   <!-- Hero Section -->
-  <section class="contact-hero">
+  <section class="contact-hero page-banner">
     <div class="container">
-      <h1>Get in Touch</h1>
-      <p class="hero-subtitle">Have questions? Want to partner with us? We'd love to hear from you!</p>
+      <div class="banner-copy">
+        <h1>Get in Touch</h1>
+        <p class="hero-subtitle">Have questions? Want to partner with us? We'd love to hear from you!</p>
+      </div>
     </div>
+    <Image src={bannerImage} class="banner-photo banner-photo--portrait" alt="A brown and white stray dog resting on the sand" width={1200} height={1000} widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 50vw" format="webp" quality={80} loading="eager" fetchpriority="high" />
   </section>
 
   <!-- Contact Section -->
@@ -26,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
                 id="name" 
                 name="name" 
                 required 
-                placeholder="John Doe"
+                placeholder="Your full name"
               />
             </div>
 
@@ -37,7 +42,7 @@ import Layout from '../layouts/Layout.astro';
                 id="email" 
                 name="email" 
                 required 
-                placeholder="john@example.com"
+                placeholder="you@example.com"
               />
             </div>
 
@@ -47,7 +52,7 @@ import Layout from '../layouts/Layout.astro';
                 type="tel" 
                 id="phone" 
                 name="phone" 
-                placeholder="+1 (555) 123-4567"
+                placeholder="Include your country code"
               />
             </div>
 
@@ -78,7 +83,7 @@ import Layout from '../layouts/Layout.astro';
             </button>
           </form>
 
-          <div id="formMessage" class="form-message"></div>
+        <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
         </div>
 
         <!-- Contact Info -->
@@ -146,7 +151,7 @@ import Layout from '../layouts/Layout.astro';
         <h2>Join the WoofCare Movement</h2>
         <p>Together, we can create a world where every bark finds a helping hand.</p>
         <div class="cta-buttons">
-          <a href="/" class="btn btn-secondary">Learn More</a>
+          <a href="/" class="btn btn-secondary">About WoofCare</a>
           <a href="/about" class="btn btn-secondary">Our Mission</a>
         </div>
       </div>
@@ -197,7 +202,7 @@ import Layout from '../layouts/Layout.astro';
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .contact-form-container h2 {
@@ -209,7 +214,7 @@ import Layout from '../layouts/Layout.astro';
 
   .contact-form {
     padding: 0 2.5rem 2.5rem;
-    overflow-y: auto;
+    overflow-y: visible;
     flex: 1;
   }
 
@@ -341,7 +346,7 @@ import Layout from '../layouts/Layout.astro';
 
   .faq-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 2rem;
   }
 
@@ -410,21 +415,19 @@ import Layout from '../layouts/Layout.astro';
     position: relative;
     overflow: hidden;
     background: var(--primary-brown);
-    padding: clamp(5rem, 10vw, 8rem) 0;
-  }
-
-  .contact-hero .container {
-    position: relative;
-    z-index: 1;
+    padding: 0;
   }
 
   .contact-hero h1 {
-    font-size: clamp(3rem, 8vw, 5.6rem);
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    margin-bottom: 0;
   }
 
   .hero-subtitle {
     max-width: 760px;
-    margin: 1.5rem auto 0;
+    margin: 1.25rem 0 0;
     line-height: 1.55;
   }
 
@@ -441,7 +444,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .contact-form-container {
-    border-radius: 28px;
+    border-radius: 12px;
     border: 1px solid var(--border-soft);
     background: rgba(255, 255, 255, 0.88);
     box-shadow: var(--shadow-md);
@@ -453,8 +456,8 @@ import Layout from '../layouts/Layout.astro';
 
   .form-group input,
   .form-group textarea {
-    border: 1px solid rgba(111, 67, 31, 0.16);
-    border-radius: 16px;
+    border: 1px solid var(--border-input);
+    border-radius: 6px;
     background: var(--light-cream);
     color: var(--text-dark);
   }
@@ -463,21 +466,23 @@ import Layout from '../layouts/Layout.astro';
   .form-group textarea:focus {
     border-color: var(--primary-brown);
     background: var(--white);
-    box-shadow: 0 0 0 4px rgba(184, 121, 43, 0.1);
+    outline: 2px solid var(--primary-brown);
+    outline-offset: 2px;
+    box-shadow: none;
   }
 
   .info-card,
   .faq-item {
     border: 1px solid var(--border-soft);
     border-left: 0;
-    border-radius: 22px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.88);
     box-shadow: var(--shadow-sm);
   }
 
   .info-card:hover,
   .faq-item:hover {
-    transform: translateY(-5px);
+    transform: none;
     box-shadow: var(--shadow-md);
   }
 
@@ -497,9 +502,9 @@ import Layout from '../layouts/Layout.astro';
     max-width: 780px;
     margin: 0 auto;
     border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 28px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.07);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    box-shadow: none;
   }
 
   @media (max-width: 968px) {
@@ -576,6 +581,7 @@ import Layout from '../layouts/Layout.astro';
       // Show success message
       formMessage.textContent = 'Opening your email client... If it doesn\'t open automatically, please email us at woofcareepics@gmail.com';
       formMessage.className = 'form-message success';
+      formMessage.style.display = 'block';
 
       // Reset form
       form.reset();
@@ -587,30 +593,4 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  // Match form container height to info boxes height
-  function matchHeights() {
-    const formContainer = document.querySelector('.contact-form-container') as HTMLElement;
-    const contactInfo = document.querySelector('.contact-info') as HTMLElement;
-    
-    if (formContainer && contactInfo && window.innerWidth > 968) {
-      // Reset height first
-      formContainer.style.height = 'auto';
-      
-      // Get the height of the contact info section
-      const infoHeight = contactInfo.offsetHeight;
-      
-      // Set the form container to match
-      formContainer.style.height = `${infoHeight}px`;
-    } else if (formContainer && window.innerWidth <= 968) {
-      // Reset height on mobile
-      formContainer.style.height = 'auto';
-    }
-  }
-
-  // Run on load and resize
-  window.addEventListener('load', matchHeights);
-  window.addEventListener('resize', matchHeights);
-  
-  // Run after a short delay to ensure all content is loaded
-  setTimeout(matchHeights, 100);
 </script>

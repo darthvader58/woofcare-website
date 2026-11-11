@@ -10,10 +10,10 @@ import Layout from '../layouts/Layout.astro';
         <h1>WoofCare</h1>
         <p class="hero-tagline">Where Every Bark Finds a Helping Hand</p>
         <p class="hero-description">
-          Connect with dog-help resources in your vicinity to find home and care for abandoned stray dogs.
+          Connect with nearby dog care resources to find homes and care for abandoned stray dogs.
         </p>
         <div class="hero-buttons">
-          <a href="/join" class="btn btn-primary">Join the Movement</a>
+          <a href="/join" class="btn btn-primary">Join WoofCare</a>
         </div>
         <div class="coming-soon">
           <a
@@ -65,7 +65,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="phone-shell">
             <div class="phone-screen">
               <div class="screen-status"></div>
-              <div class="screen-logo"><img src="logo.svg" alt=""/></div>
+              <div class="screen-logo"><img src="/logo.svg" alt="" width="604" height="614" fetchpriority="high" /></div>
               <div class="screen-line wide"></div>
               <div class="screen-line"></div>
               <div class="screen-card large"></div>
@@ -96,7 +96,7 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </div>
           <h3>Dog Lovers' Dilemma</h3>
-          <p>Many compassionate people want to help stray dogs but face challenges with household situations, financial constraints, and limited access to veterinary care.</p>
+          <p>People want to help stray dogs but may lack space at home, funds, or access to veterinary care.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">
@@ -105,7 +105,7 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </div>
           <h3>Overwhelmed NGOs</h3>
-          <p>Animal welfare organizations struggle with limited space, resources, financial assistance, and network reach to help all dogs in need.</p>
+          <p>Animal welfare organizations face limited space, supplies, funding, and reach when caring for dogs in need.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">
@@ -124,13 +124,13 @@ import Layout from '../layouts/Layout.astro';
   <section class="section solution-section">
     <div class="container">
       <h2 class="section-title">Our Solution</h2>
-      <p class="section-subtitle">A social-media networking app that connects all dog lovers with dog resources in the vicinity.</p>
+      <p class="section-subtitle">A social networking app that connects dog lovers with nearby dog care resources.</p>
       
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-number">01</div>
           <h3>Report Need for Care</h3>
-          <p>Easily report stray dogs that need help directly through the app with location and details.</p>
+          <p>Report a stray dog that needs help through the app, including its location and details.</p>
         </div>
         <div class="feature-card">
           <div class="feature-number">02</div>
@@ -140,7 +140,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="feature-card">
           <div class="feature-number">03</div>
           <h3>Inspire Others</h3>
-          <p>Share success stories and build a community of dog lovers making a real difference.</p>
+          <p>Share success stories and connect with other dog lovers helping in their communities.</p>
         </div>
       </div>
     </div>
@@ -478,7 +478,7 @@ import Layout from '../layouts/Layout.astro';
     background: var(--primary-brown);
     color: var(--white);
     border: 2px solid var(--dark-brown);
-    box-shadow: 0 16px 34px rgba(184, 121, 43, 0.24);
+    box-shadow: none;
   }
 
   .cta-content .btn-primary:hover {
@@ -490,11 +490,11 @@ import Layout from '../layouts/Layout.astro';
   .hero {
     isolation: isolate;
     background: var(--cream);
-    padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+    padding: clamp(3rem, 5vw, 5rem) 0;
   }
 
   .hero-container {
-    min-height: clamp(560px, 72vh, 760px);
+    min-height: 480px;
     gap: clamp(2rem, 6vw, 5rem);
   }
 
@@ -505,7 +505,7 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-content h1 {
     color: var(--deep-brown);
-    font-size: clamp(3.25rem, 9vw, 6.8rem);
+    font-size: clamp(3.25rem, 7vw, 5.75rem);
     letter-spacing: 0;
     margin-bottom: 1rem;
   }
@@ -513,7 +513,7 @@ import Layout from '../layouts/Layout.astro';
   .hero-tagline {
     color: var(--primary-brown);
     font-size: clamp(1.2rem, 2.4vw, 1.75rem);
-    font-weight: 850;
+    font-weight: 700;
   }
 
   .hero-description {
@@ -528,7 +528,7 @@ import Layout from '../layouts/Layout.astro';
     gap: 1rem;
     padding: 0.85rem;
     border: 1px solid rgba(111, 67, 31, 0.18);
-    border-radius: 24px;
+    border-radius: 10px;
     background: var(--white);
     box-shadow: var(--shadow-sm);
   }
@@ -543,17 +543,16 @@ import Layout from '../layouts/Layout.astro';
     gap: 0.8rem;
     min-height: 4.4rem;
     padding: 0.85rem 1.1rem;
-    border-radius: 18px;
+    border-radius: 8px;
     background: var(--primary-brown);
-    border: 2px solid var(--dark-brown);
+    border: 1px solid var(--dark-brown);
     color: var(--white);
-    box-shadow: 0 12px 26px rgba(61, 40, 23, 0.14);
+    box-shadow: none;
   }
 
   .apk-download:hover {
     background: var(--dark-brown);
     color: var(--white);
-    transform: translateY(-2px);
   }
 
   .apk-download strong,
@@ -570,7 +569,7 @@ import Layout from '../layouts/Layout.astro';
 
   .apk-download small {
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 400;
     opacity: 0.86;
   }
 
@@ -584,7 +583,7 @@ import Layout from '../layouts/Layout.astro';
   .download-icon {
     width: 2rem;
     height: 2rem;
-    border-radius: 11px;
+    border-radius: 5px;
     background: var(--white);
     color: var(--primary-brown);
   }
@@ -616,9 +615,9 @@ import Layout from '../layouts/Layout.astro';
     gap: 0.55rem;
     min-height: 3.2rem;
     padding: 0.7rem 0.95rem;
-    border-radius: 16px;
+    border-radius: 8px;
     font-size: 0.95rem;
-    font-weight: 800;
+    font-weight: 600;
     white-space: nowrap;
   }
 
@@ -633,7 +632,7 @@ import Layout from '../layouts/Layout.astro';
   .store-icon {
     width: 1.8rem;
     height: 1.8rem;
-    border-radius: 10px;
+    border-radius: 4px;
     background: var(--white);
     color: var(--primary-brown);
     border: 1px solid rgba(111, 67, 31, 0.12);
@@ -641,20 +640,20 @@ import Layout from '../layouts/Layout.astro';
 
   .store-note {
     color: var(--text-muted);
-    font-size: 0.92rem;
-    font-style: italic;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0;
   }
 
   .hero-image {
-    min-height: 520px;
+    min-height: 440px;
     position: relative;
   }
 
   .product-visual {
     position: relative;
-    width: min(100%, 480px);
+    width: min(100%, 420px);
     aspect-ratio: 0.88;
     display: grid;
     place-items: center;
@@ -678,7 +677,7 @@ import Layout from '../layouts/Layout.astro';
     padding: 0.78rem;
     border-radius: 38px;
     background: var(--deep-brown);
-    box-shadow: 0 34px 90px rgba(61, 40, 23, 0.26);
+    box-shadow: 0 12px 28px rgba(61, 40, 23, 0.12);
     transform: rotate(5deg);
     z-index: 2;
   }
@@ -757,11 +756,10 @@ import Layout from '../layouts/Layout.astro';
   .floating-panel {
     position: absolute;
     z-index: 3;
-    border-radius: 22px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(111, 67, 31, 0.12);
     box-shadow: var(--shadow-md);
-    backdrop-filter: blur(16px);
   }
 
   .floating-panel::before,
@@ -838,15 +836,15 @@ import Layout from '../layouts/Layout.astro';
   .resource-icon {
     justify-content: flex-start;
     width: fit-content;
-    padding: 0.7rem;
-    border-radius: 18px;
+    padding: 0.5rem;
+    border-radius: 6px;
     background: rgba(184, 121, 43, 0.1);
   }
 
   .problem-card:hover,
   .feature-card:hover,
   .resource-item:hover {
-    transform: translateY(-6px);
+    transform: none;
     box-shadow: var(--shadow-md);
   }
 
@@ -861,7 +859,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .feature-card::before {
-    content: '';
+    content: none;
     position: absolute;
     inset: 0 0 auto;
     height: 5px;
@@ -869,12 +867,12 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .feature-card:hover {
-    transform: translateY(-6px);
+    transform: none;
   }
 
   .feature-number {
     color: rgba(184, 121, 43, 0.28);
-    font-size: 3.25rem;
+    font-size: 1.5rem;
     line-height: 1;
   }
 
@@ -899,8 +897,8 @@ import Layout from '../layouts/Layout.astro';
   .cta-content {
     max-width: 780px;
     margin: 0 auto;
-    border: 2px solid rgba(111, 67, 31, 0.22);
-    border-radius: 28px;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
     background: var(--light-cream);
     box-shadow: var(--shadow-sm);
   }
@@ -1043,7 +1041,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .resources-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

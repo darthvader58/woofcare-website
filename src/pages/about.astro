@@ -1,14 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import bannerImage from '../assets/stray-dogs-together.jpg';
+import shashwatPhoto from '../assets/team/shashwat.png';
+import jesusPhoto from '../assets/team/jesus.jpg';
+import johnnessaPhoto from '../assets/team/johnnessa.jpg';
+import yugPhoto from '../assets/team/yug.jpg';
+import rishabhPhoto from '../assets/team/rishabh.jpg';
+import danielPhoto from '../assets/team/daniel.jpg';
+import anantkumarPhoto from '../assets/team/anantkumar.jpg';
+import beenaPhoto from '../assets/team/beena.webp';
+
+const coreMembers = [
+  { id: 'shashwat', name: 'Shashwat Raj', role: 'Chief Executive Officer & Founder', photo: shashwatPhoto },
+  { id: 'jesus', name: 'Jesus Aguilar', role: 'Chief Operating Officer', photo: jesusPhoto },
+  { id: 'johnnessa', name: 'Johnnessa Barroquillo', role: 'Chief Design Officer', photo: johnnessaPhoto },
+  { id: 'yug', name: 'Yug Thapar', role: 'Chief Technological Officer', photo: yugPhoto },
+  { id: 'rishabh', name: 'Rishabh Roy', role: 'Director & Chief of Logistics', photo: rishabhPhoto },
+  { id: 'daniel', name: 'Daniel Abrams', role: 'Founding Engineer', photo: danielPhoto },
+];
+
+const communityPartners = [
+  {
+    name: 'Anantkumar Malikaveetil',
+    role: 'Community Partner, Banyan Tree',
+    photo: anantkumarPhoto,
+    quote: '"WoofCare has the potential to revolutionize how we care for stray dogs in India"',
+  },
+  {
+    name: 'Beena Malikaveetil',
+    role: 'Advisor, Dogs Friendly Pune',
+    photo: beenaPhoto,
+    quote: '"This social-network method could be actually very helpful for NGOs and rescue shelters"',
+  },
+];
 ---
 
 <Layout title="About Us" description="Learn about WoofCare's mission to help stray dogs and meet our dedicated team.">
   <!-- Hero Section -->
-  <section class="about-hero">
+  <section class="about-hero page-banner">
     <div class="container">
-      <h1>About WoofCare</h1>
-      <p class="hero-subtitle">Building a compassionate community for stray dogs</p>
+      <div class="banner-copy">
+        <h1>About WoofCare</h1>
+        <p class="hero-subtitle">Building a compassionate community for stray dogs</p>
+      </div>
     </div>
+    <Image src={bannerImage} class="banner-photo" alt="Two stray dogs nuzzling each other outdoors" width={1200} height={800} widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 50vw" format="webp" quality={80} loading="eager" fetchpriority="high" />
   </section>
 
   <!-- Problem Statement Section -->
@@ -19,7 +56,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="problem-content">
         <div class="problem-block">
           <h3>Dog Lovers' Dilemma</h3>
-          <p>Every day, compassionate individuals like Rajat and Soumya encounter stray dogs in need. They want to help, but face critical questions:</p>
+          <p>People who find stray dogs in need often want to help, but face practical questions:</p>
           <ul class="problem-list">
             <li>Can my household situation accommodate a rescue?</li>
             <li>Do I have the financial means for proper care?</li>
@@ -29,8 +66,8 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div class="problem-block">
-          <h3>NGOs Rendered Helpless</h3>
-          <p>Animal welfare organizations work tirelessly but are constrained by:</p>
+          <h3>Challenges for NGOs</h3>
+          <p>Animal welfare organizations face limits in:</p>
           <ul class="problem-list">
             <li><strong>Limited Space:</strong> Shelters are often at full capacity</li>
             <li><strong>Limited Resources:</strong> Insufficient supplies and equipment</li>
@@ -66,7 +103,7 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="section-title">Our Solution</h2>
       
       <div class="solution-intro">
-        <p class="solution-tagline">A social-media networking app that connects all dog lovers with dog resources in the vicinity.</p>
+        <p class="solution-tagline">A social networking app that connects dog lovers with nearby dog care resources.</p>
       </div>
 
       <div class="solution-features">
@@ -77,7 +114,7 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </div>
           <h3>Report Need for Care or Help</h3>
-          <p>Users can easily report stray dogs in need through the app, sharing location, photos, and details to mobilize quick assistance.</p>
+          <p>Report stray dogs in need through the app, sharing their location, photos, and details to help others respond.</p>
         </div>
 
         <div class="solution-feature">
@@ -87,7 +124,7 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </div>
           <h3>Help or Find Help</h3>
-          <p>Connect instantly with nearby veterinary clinics, rescue shelters, NGOs, dog feeders, and potential adopters to provide or receive assistance.</p>
+          <p>Connect with nearby veterinary clinics, rescue shelters, NGOs, dog feeders, and potential adopters to offer or find help.</p>
         </div>
 
         <div class="solution-feature">
@@ -97,7 +134,7 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </div>
           <h3>Inspire Others to Join</h3>
-          <p>Share success stories, adoption updates, and rescue experiences to build a thriving community of dog lovers making a real impact.</p>
+          <p>Share success stories, adoption updates, and rescue experiences with other dog lovers in your community.</p>
         </div>
       </div>
 
@@ -120,62 +157,37 @@ import Layout from '../layouts/Layout.astro';
   <section class="section team-section">
     <div class="container">
       <h2 class="section-title">Meet Our Core Team</h2>
-      <p class="section-subtitle">Passionate individuals united by a mission to help every stray dog find care</p>
+      <p class="section-subtitle">The people working to help stray dogs find care</p>
 
       <div class="team-grid">
-        <div class="team-member">
-          <div class="member-photo">SR</div>
-          <h3>Shashwat Raj</h3>
-          <p class="member-role">Chief Executive Officer & Founder</p>
-        </div>
-
-        <div class="team-member">
-          <div class="member-photo">JA</div>
-          <h3>Jesus Aguilar</h3>
-          <p class="member-role">Chief Operating Officer</p>
-        </div>
-
-        <div class="team-member">
-          <div class="member-photo">JB</div>
-          <h3>Johnessa Barroquillo</h3>
-          <p class="member-role">Chief Design Officer</p>
-        </div>
-
-        <div class="team-member">
-          <div class="member-photo">YT</div>
-          <h3>Yug Thapar</h3>
-          <p class="member-role">Chief Technological Officer</p>
-        </div>
-
-        <div class="team-member">
-          <div class="member-photo">RR</div>
-          <h3>Rishabh Roy</h3>
-          <p class="member-role">Director & Chief of Logistics</p>
-        </div>
-
-        <div class="team-member">
-          <div class="member-photo">DA</div>
-          <h3>Daniel Abrams</h3>
-          <p class="member-role">Founding Engineer</p>
-        </div>
+        {coreMembers.map((member) => (
+          <article class="team-member">
+            <div class={`member-photo member-photo--${member.id}`}>
+              <Image src={member.photo} alt={member.name} width={256} height={256} widths={[128, 256]} sizes="(max-width: 480px) 80px, 128px" format="webp" quality={85} loading="lazy" />
+            </div>
+            <div class="member-details">
+              <h3>{member.name}</h3>
+              <p class="member-role">{member.role}</p>
+            </div>
+          </article>
+        ))}
       </div>
 
       <div class="partners-section">
         <h3>Our Community Partners</h3>
         <div class="partners-grid">
-          <div class="partner-card">
-            <div class="partner-photo">AM</div>
-            <h4>Anantkumar Malikaveetil</h4>
-            <p>Community Partner, Banyan Tree</p>
-            <p class="partner-quote">"WoofCare has the potential to revolutionize how we care for stray dogs in India"</p>
-          </div>
-
-          <div class="partner-card">
-            <div class="partner-photo">BM</div>
-            <h4>Beena Malikaveetil</h4>
-            <p>Advisor, Dogs Friendly Pune</p>
-            <p class="partner-quote">"This social-network method could be actually very helpful for NGOs and rescue shelters"</p>
-          </div>
+          {communityPartners.map((partner) => (
+            <article class="partner-card">
+              <div class="partner-photo">
+                <Image src={partner.photo} alt={partner.name} width={256} height={256} widths={[128, 256]} sizes="(max-width: 480px) 80px, 128px" format="webp" quality={85} loading="lazy" />
+              </div>
+              <div class="partner-details">
+                <h4>{partner.name}</h4>
+                <p>{partner.role}</p>
+              </div>
+              <p class="partner-quote">{partner.quote}</p>
+            </article>
+          ))}
         </div>
       </div>
     </div>
@@ -213,7 +225,7 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </div>
           <h3>Provide Homes</h3>
-          <p>Finding loving forever homes for innocent, helpless abandoned stray dogs through our adoption network.</p>
+          <p>Helping abandoned stray dogs find lasting homes through our adoption network.</p>
         </div>
       </div>
     </div>
@@ -240,17 +252,19 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .section-title {
-    text-align: center;
+    text-align: left;
     color: var(--primary-brown);
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 2rem;
   }
 
   .section-subtitle {
-    text-align: center;
+    text-align: left;
     font-size: 1.1rem;
     color: var(--text-medium);
     max-width: 700px;
-    margin: 0 auto 3rem;
+    margin: 0 0 3rem;
   }
 
   /* Problem Section */
@@ -259,8 +273,8 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .problem-content {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 3rem;
   }
 
@@ -287,11 +301,12 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .stats-block {
+    grid-column: 1 / -1;
     background: var(--primary-brown);
     color: var(--white);
     padding: 2rem;
     border-radius: 12px;
-    text-align: center;
+    text-align: left;
   }
 
   .stats-block h3 {
@@ -306,7 +321,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .stat-item {
-    text-align: center;
+    text-align: left;
   }
 
   .stat-number {
@@ -327,7 +342,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .solution-intro {
-    text-align: center;
+    text-align: left;
     margin-bottom: 3rem;
   }
 
@@ -336,7 +351,7 @@ import Layout from '../layouts/Layout.astro';
     color: var(--dark-brown);
     font-weight: 600;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0;
   }
 
   .solution-features {
@@ -350,7 +365,7 @@ import Layout from '../layouts/Layout.astro';
     background-color: var(--cream);
     padding: 2rem;
     border-radius: 12px;
-    text-align: center;
+    text-align: left;
     transition: all 0.3s ease;
   }
 
@@ -363,7 +378,7 @@ import Layout from '../layouts/Layout.astro';
     color: var(--primary-brown);
     margin-bottom: 1rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .feature-icon svg {
@@ -391,6 +406,7 @@ import Layout from '../layouts/Layout.astro';
   .resources-tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
   }
 
@@ -437,10 +453,14 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .team-member {
+    display: grid;
+    grid-template-columns: 128px minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
     background-color: var(--white);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
-    text-align: center;
+    text-align: left;
     transition: all 0.3s ease;
   }
 
@@ -449,22 +469,30 @@ import Layout from '../layouts/Layout.astro';
     box-shadow: 0 10px 30px rgba(184, 121, 43, 0.3);
   }
 
-  .member-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--primary-brown);
-    border: 4px solid var(--cream);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 auto 1rem;
+  .member-photo,
+  .partner-photo {
+    width: 128px;
+    height: 128px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .member-photo img,
+  .partner-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .member-photo--rishabh img {
+    transform: scale(1.65);
+    transform-origin: 50% 35%;
   }
 
   .team-member h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
     color: var(--dark-brown);
     margin-bottom: 0.5rem;
   }
@@ -472,6 +500,18 @@ import Layout from '../layouts/Layout.astro';
   .member-role {
     color: var(--primary-brown);
     font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .member-details,
+  .partner-details {
+    min-width: 0;
+  }
+
+  .partner-details p {
+    margin-bottom: 0;
   }
 
   .partners-section {
@@ -479,7 +519,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .partners-section h3 {
-    text-align: center;
+    text-align: left;
     color: var(--dark-brown);
     margin-bottom: 2rem;
   }
@@ -491,26 +531,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .partner-card {
-    background-color: var(--white);
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    border: 2px solid var(--primary-brown);
-  }
-
-  .partner-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--dark-brown);
-    border: 4px solid var(--cream);
-    color: var(--white);
-    display: flex;
+    display: grid;
+    grid-template-columns: 128px minmax(0, 1fr);
     align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 auto 1rem;
+    gap: 1.5rem;
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: left;
+    border: 2px solid var(--primary-brown);
   }
 
   .partner-logo {
@@ -529,10 +558,11 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .partner-quote {
+    grid-column: 1 / -1;
     font-style: italic;
     color: var(--text-medium);
     font-size: 0.9rem;
-    margin-top: 1rem;
+    margin: 0;
   }
 
   /* Impact Section */
@@ -550,7 +580,7 @@ import Layout from '../layouts/Layout.astro';
     background: var(--cream);
     padding: 2rem;
     border-radius: 12px;
-    text-align: center;
+    text-align: left;
     transition: all 0.3s ease;
   }
 
@@ -563,7 +593,7 @@ import Layout from '../layouts/Layout.astro';
     color: var(--primary-brown);
     margin-bottom: 1rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .impact-icon svg {
@@ -580,21 +610,19 @@ import Layout from '../layouts/Layout.astro';
     position: relative;
     overflow: hidden;
     background: var(--primary-brown);
-    padding: clamp(5rem, 10vw, 8rem) 0;
-  }
-
-  .about-hero .container {
-    position: relative;
-    z-index: 1;
+    padding: 0;
   }
 
   .about-hero h1 {
-    font-size: clamp(3rem, 8vw, 5.6rem);
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    margin-bottom: 0;
   }
 
   .hero-subtitle {
     max-width: 720px;
-    margin: 1.5rem auto 0;
+    margin: 1.25rem 0 0;
     line-height: 1.55;
   }
 
@@ -613,13 +641,13 @@ import Layout from '../layouts/Layout.astro';
   .problem-block {
     border-left: 0;
     border: 1px solid var(--border-soft);
-    border-radius: 24px;
+    border-radius: 12px;
     box-shadow: var(--shadow-sm);
     background: rgba(255, 255, 255, 0.82);
   }
 
   .stats-block {
-    border-radius: 28px;
+    border-radius: 12px;
     background: var(--primary-brown);
     box-shadow: var(--shadow-md);
   }
@@ -627,7 +655,7 @@ import Layout from '../layouts/Layout.astro';
   .stat-item {
     padding: 1.25rem;
     border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 20px;
+    border-radius: 8px;
     background: rgba(255, 255, 255, 0.08);
   }
 
@@ -647,33 +675,37 @@ import Layout from '../layouts/Layout.astro';
 
   .solution-feature {
     background: var(--cream);
-    border-radius: 24px;
+    border-radius: 12px;
   }
 
   .feature-icon,
   .impact-icon {
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.8rem;
-    border-radius: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0.5rem;
+    border-radius: 6px;
     background: rgba(184, 121, 43, 0.1);
   }
 
   .resources-list {
-    border-radius: 24px;
+    border-radius: 12px;
     background: rgba(255, 249, 240, 0.9);
   }
 
   .resource-tag {
-    border-radius: 999px;
+    border-radius: 6px;
     background: var(--primary-brown);
     border: 1px solid var(--dark-brown);
-    box-shadow: 0 10px 22px rgba(184, 121, 43, 0.18);
+    box-shadow: none;
   }
 
   .team-section {
     background: var(--cream);
+  }
+
+  .team-section .section-title {
+    margin-bottom: 0.75rem;
   }
 
   .team-grid {
@@ -682,20 +714,20 @@ import Layout from '../layouts/Layout.astro';
 
   .team-member,
   .partner-card {
-    border-radius: 24px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.86);
   }
 
   .team-member:hover,
   .solution-feature:hover,
   .impact-card:hover {
-    transform: translateY(-6px);
+    transform: none;
     box-shadow: var(--shadow-md);
   }
 
   .member-photo,
   .partner-photo {
-    box-shadow: 0 18px 38px rgba(61, 40, 23, 0.16);
+    box-shadow: none;
   }
 
   .partners-grid {
@@ -703,12 +735,12 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .impact-card {
-    border-radius: 24px;
+    border-radius: 12px;
     background: var(--cream);
   }
 
   .impact-card:hover {
-    transform: translateY(-6px);
+    transform: none;
   }
 
   @media (max-width: 768px) {
@@ -718,6 +750,7 @@ import Layout from '../layouts/Layout.astro';
 
     .team-grid,
     .partners-grid,
+    .problem-content,
     .solution-features,
     .impact-grid {
       grid-template-columns: 1fr;
@@ -726,10 +759,6 @@ import Layout from '../layouts/Layout.astro';
     .stats-grid {
       grid-template-columns: 1fr;
       gap: 1rem;
-    }
-
-    .resources-tags {
-      justify-content: center;
     }
 
     .problem-block,
@@ -742,18 +771,30 @@ import Layout from '../layouts/Layout.astro';
       padding: 1.5rem;
     }
 
-    .member-photo {
-      width: 100px;
-      height: 100px;
-      font-size: 1.6rem;
-    }
-
     .team-grid {
       margin-bottom: 2.5rem;
     }
 
     .partners-section {
       margin-top: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-member,
+    .partner-card {
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .member-photo,
+    .partner-photo {
+      width: 80px;
+      height: 80px;
+    }
+
+    .team-member h3 {
+      font-size: 1.125rem;
     }
   }
 </style>
